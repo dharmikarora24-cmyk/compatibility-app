@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Are We Compatible? 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Lato:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #fff5f7; --bg2: #ffeef2; --card: #ffffff;
+      --border: rgba(220,130,150,0.2); --accent: #e8748a;
+      --accent2: #f4a0b0; --accent3: #fbc8d2;
+      --text: #3a2030; --muted: rgba(58,32,48,0.5); --soft: #f9e4ea;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'Lato', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow-x: hidden; }
+    .hearts-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .heart { position: absolute; bottom: -60px; animation: floatUp linear infinite; opacity: 0; }
+    @keyframes floatUp { 0%{transform:translateY(0) rotate(-10deg) scale(0.8);opacity:0;} 10%{opacity:0.6;} 90%{opacity:0.3;} 100%{transform:translateY(-110vh) rotate(10deg) scale(1.1);opacity:0;} }
+    .app { position: relative; z-index: 1; width: 100%; max-width: 540px; padding: 24px 16px 40px; }
+    .screen { display: none; animation: fadeUp 0.45s ease forwards; }
+    .screen.active { display: block; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
+    .logo { text-align: center; margin-bottom: 32px; }
+    .logo-title { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 400; color: var(--text); line-height: 1.15; }
+    .logo-title span { color: var(--accent); font-style: italic; }
+    .logo-sub { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 8px; }
+    .logo-tagline { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-style: italic; color: var(--accent); margin-top: 10px; }
+    .disclaimer { background: #fff0f3; border: 1px solid var(--accent3); border-radius: 12px; padding: 12px 16px; font-size: 0.76rem; color: var(--muted); line-height: 1.6; margin-bottom: 18px; text-align: center; }
+    .disclaimer strong { color: var(--accent); font-weight: 500; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 32px 28px; box-shadow: 0 4px 40px rgba(232,116,138,0.1); }
+    .card-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 400; margin-bottom: 6px; color: var(--text); }
+    .card-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 26px; line-height: 1.6; }
+    .btn { width: 100%; padding: 14px 20px; border-radius: 50px; border: none; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease; }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; box-shadow: 0 4px 16px rgba(232,116,138,0.3); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(232,116,138,0.35); }
+    .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--muted); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn + .btn { margin-top: 10px; }
+    input[type="text"] { width: 100%; background: var(--soft); border: 1.5px solid var(--border); border-radius: 12px; padding: 13px 16px; color: var(--text); font-family: 'Lato', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; margin-bottom: 12px; letter-spacing: 0.1em; }
+    input[type="text"]:focus { border-color: var(--accent); background: #fff; }
+    input[type="text"]::placeholder { color: var(--muted); }
+    .role-select { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .role-btn { padding: 18px 10px; border-radius: 16px; border: 1.5px solid var(--border); background: var(--soft); color: var(--muted); cursor: pointer; text-align: center; transition: all 0.2s; font-family: 'Lato', sans-serif; }
+    .role-btn .role-emoji { font-size: 1.8rem; display: block; margin-bottom: 6px; }
+    .role-btn .role-label { font-size: 0.82rem; font-weight: 500; }
+    .role-btn:hover, .role-btn.selected { border-color: var(--accent); color: var(--accent); background: #fff0f3; box-shadow: 0 2px 12px rgba(232,116,138,0.15); }
+    .room-code-box { background: linear-gradient(135deg, #fff0f3, #fce4ea); border: 1.5px solid var(--accent3); border-radius: 18px; padding: 24px; text-align: center; margin: 20px 0; }
+    .room-code-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+    .room-code-value { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 600; color: var(--accent); letter-spacing: 0.25em; }
+    .copy-hint { font-size: 0.75rem; color: var(--muted); margin-top: 10px; cursor: pointer; }
+    .copy-hint:hover { color: var(--accent); }
+    .question-progress { display: flex; gap: 6px; margin-bottom: 22px; }
+    .progress-dot { flex: 1; height: 4px; border-radius: 2px; background: var(--accent3); transition: background 0.3s; }
+    .progress-dot.done { background: var(--accent); }
+    .progress-dot.active { background: var(--accent2); }
+    .question-num { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+    .question-text { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 400; line-height: 1.55; color: var(--text); margin-bottom: 22px; }
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .option-btn { padding: 14px 18px; border-radius: 14px; border: 1.5px solid var(--border); background: var(--soft); color: var(--muted); cursor: pointer; text-align: left; font-family: 'Lato', sans-serif; font-size: 0.88rem; line-height: 1.4; transition: all 0.2s; display: flex; align-items: flex-start; gap: 12px; }
+    .option-btn:hover { border-color: var(--accent2); color: var(--text); background: #fff6f8; }
+    .option-btn.selected { border-color: var(--accent); color: var(--accent); background: #fff0f3; }
+    .option-num { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; flex-shrink: 0; margin-top: 1px; }
+    .question-nav { display: flex; gap: 10px; margin-top: 22px; }
+    .question-nav .btn { flex: 1; }
+    .waiting-anim { text-align: center; padding: 24px 0; }
+    .heart-pulse { font-size: 3.5rem; animation: pulse 1.4s ease-in-out infinite; display: block; margin-bottom: 18px; }
+    @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
+    .waiting-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--text); margin-bottom: 8px; }
+    .waiting-sub { font-size: 0.82rem; color: var(--muted); }
+    .results-header { text-align: center; padding: 10px 0 24px; }
+    .results-hearts { font-size: 1.4rem; letter-spacing: 6px; margin-bottom: 16px; animation: pulse 2s ease-in-out infinite; }
+    .score-circle { width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, #fff0f3, #fce4ea); border: 3px solid var(--accent3); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 16px; box-shadow: 0 8px 32px rgba(232,116,138,0.2); }
+    .score-num { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 600; color: var(--accent); line-height: 1; }
+    .score-pct { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    .score-msg { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; color: var(--muted); margin-top: 8px; }
+    .per-question-title { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin: 20px 0 14px; }
+    .q-result { margin-bottom: 16px; }
+    .q-result-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+    .q-result-name { font-size: 0.82rem; color: var(--muted); }
+    .q-result-score { font-size: 0.85rem; color: var(--accent); font-weight: 500; }
+    .q-result-answers { font-size: 0.76rem; color: var(--accent3); margin-bottom: 6px; }
+    .q-bar-bg { height: 5px; background: var(--soft); border-radius: 3px; overflow: hidden; }
+    .q-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width 1.2s ease; }
+    .error-msg { background: #fff0f0; border: 1px solid #ffcccc; color: #cc4444; padding: 10px 14px; border-radius: 10px; font-size: 0.8rem; margin-top: 10px; display: none; }
+    .error-msg.show { display: block; }
+    .divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; }
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+    .divider-text { font-size: 0.75rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+<div class="hearts-bg" id="heartsBg"></div>
+<div class="app">
+  <div id="screen-home" class="screen active">
+    <div class="logo">
+      <div class="logo-title">Are We <span>Compatible?</span></div>
+      <div class="logo-sub">A little test for two hearts</div>
+      <div class="logo-tagline">"Be honest — this one is for you both." 💕</div>
+    </div>
+    <div class="disclaimer"><strong>Heads up!</strong> All situations here are <strong>hypothetical</strong>. The results are based on a survey of real people's thoughts and reactions — not a scientific formula. Take it lightly, take it together. 🌸</div>
+    <div class="card">
+      <div class="card-title">Ready to find out?</div>
+      <div class="card-desc">Answer 5 real-life situations honestly and separately. See how close your hearts really are.</div>
+      <button class="btn btn-primary" onclick="showScreen('screen-create')">💕 Create a Room</button>
+      <div class="divider"><div class="divider-line"></div><div class="divider-text">or</div><div class="divider-line"></div></div>
+      <button class="btn btn-outline" onclick="showScreen('screen-join')">Join with Room Code</button>
+    </div>
+  </div>
+  <div id="screen-create" class="screen">
+    <div class="logo"><div class="logo-title">Create a <span>Room</span></div></div>
+    <div class="card">
+      <div class="card-title">Who are you?</div>
+      <div class="card-desc">Pick your role — your partner will join with the room code you share.</div>
+      <div class="role-select">
+        <button class="role-btn" id="role-girl" onclick="selectRole('girl')"><span class="role-emoji">👩</span><span class="role-label">Girl</span></button>
+        <button class="role-btn" id="role-boy" onclick="selectRole('boy')"><span class="role-emoji">👦</span><span class="role-label">Boy</span></button>
+      </div>
+      <button class="btn btn-primary" onclick="createRoom()">Generate Room Code 💕</button>
+      <button class="btn btn-outline" style="margin-top:10px" onclick="showScreen('screen-home')">Back</button>
+      <div class="error-msg" id="create-error"></div>
+    </div>
+  </div>
+  <div id="screen-roomcode" class="screen">
+    <div class="logo"><div class="logo-title">Share the <span>Code</span></div></div>
+    <div class="card">
+      <div class="card-title">Your room is ready 🌸</div>
+      <div class="card-desc">Share this code with your partner. Start only when both of you are ready.</div>
+      <div class="room-code-box">
+        <div class="room-code-label">Room Code</div>
+        <div class="room-code-value" id="display-code">------</div>
+        <div class="copy-hint" onclick="copyCode()">💕 tap to copy</div>
+      </div>
+      <button class="btn btn-primary" onclick="startQuiz()">I am Ready — Let us Go!</button>
+    </div>
+  </div>
+  <div id="screen-join" class="screen">
+    <div class="logo"><div class="logo-title">Join a <span>Room</span></div></div>
+    <div class="card">
+      <div class="card-title">Enter the room code</div>
+      <div class="card-desc">Your partner should share a 6-character code with you.</div>
+      <input type="text" id="join-code" placeholder="e.g. AB12CD" maxlength="6" style="text-transform:uppercase"/>
+      <div class="card-title" style="margin-top:14px">And you are...?</div>
+      <div class="role-select" style="margin-top:12px">
+        <button class="role-btn" id="join-role-girl" onclick="selectJoinRole('girl')"><span class="role-emoji">👩</span><span class="role-label">Girl</span></button>
+        <button class="role-btn" id="join-role-boy" onclick="selectJoinRole('boy')"><span class="role-emoji">👦</span><span class="role-label">Boy</span></button>
+      </div>
+      <button class="btn btn-primary" onclick="joinRoom()">Join Room 💕</button>
+      <button class="btn btn-outline" style="margin-top:10px" onclick="showScreen('screen-home')">Back</button>
+      <div class="error-msg" id="join-error"></div>
+    </div>
+  </div>
+  <div id="screen-quiz" class="screen">
+    <div class="card">
+      <div class="question-progress" id="progress-dots"></div>
+      <div class="question-num" id="q-num">Question 1 of 5</div>
+      <div class="question-text" id="q-text"></div>
+      <div class="options" id="q-options"></div>
+      <div class="question-nav">
+        <button class="btn btn-outline" id="btn-prev" onclick="prevQuestion()">Prev</button>
+        <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()">Next</button>
+      </div>
+    </div>
+  </div>
+  <div id="screen-waiting" class="screen">
+    <div class="card">
+      <div class="waiting-anim">
+        <span class="heart-pulse">💗</span>
+        <div class="waiting-text">Waiting for your partner...</div>
+        <div class="waiting-sub" id="waiting-sub">They are still answering 🌸</div>
+      </div>
+    </div>
+  </div>
+  <div id="screen-results" class="screen">
+    <div class="logo"><div class="logo-title">Your <span>Result</span> 💕</div></div>
+    <div class="card">
+      <div class="results-header">
+        <div class="results-hearts">💕 🌸 💕</div>
+        <div class="score-circle">
+          <div class="score-num" id="final-score-num">--</div>
+          <div class="score-pct">compatible</div>
+        </div>
+        <div class="score-msg" id="score-msg">Based on how both of you see the world 🌸</div>
+      </div>
+      <div class="disclaimer" style="margin-bottom:16px">Remember — these are <strong>hypothetical situations</strong>. Real compatibility is built every day, in small moments. This is just a fun peek. 💕</div>
+      <div class="per-question-title">How you matched — situation by situation</div>
+      <div id="per-question-results"></div>
+      <button class="btn btn-outline" style="margin-top:24px" onclick="showScreen('screen-home'); resetAll()">Take Again</button>
+    </div>
+  </div>
+</div>
+<script>
+  const emojis=['💕','🌸','💗','🌷','💖','🩷','🤍','💝'];
+  function spawnHeart(){const bg=document.getElementById('heartsBg');const h=document.createElement('div');h.className='heart';h.textContent=emojis[Math.floor(Math.random()*emojis.length)];h.style.left=Math.random()*100+'vw';h.style.fontSize=(0.9+Math.random()*1.2)+'rem';const dur=7+Math.random()*8;h.style.animationDuration=dur+'s';h.style.animationDelay=(Math.random()*4)+'s';bg.appendChild(h);setTimeout(()=>h.remove(),(dur+4)*1000);}
+  setInterval(spawnHeart,800);
+  for(let i=0;i<6;i++)setTimeout(spawnHeart,i*300);
+  const API='';
+  let roomCode='',myRole='',createRole='',joinRole='',currentQ=0,answers=[null,null,null,null,null],pollInterval=null;
+  const QUESTIONS=[
+    {text:"A person stole your wallet and you caught them. They confessed they are truly needy. What do you do?",options:["Take them to the police","Beat them","Forgive them and give a chance"]},
+    {text:"You are on a bus with an injured leg. An old man rudely demands your seat, then starts fighting when you politely refuse. What do you do?",options:["Stand up and give the seat quietly","Reply back rudely","Ignore them until they cool down"]},
+    {text:"Your best friend shares something suspicious about your partner that could shake your trust. How do you react?",options:["Confront your partner and ask for an explanation","Fight and break up immediately","Trust your partner fully and defend them in front of your friend"]},
+    {text:"You are in a new group with seniors and struggle to express your views. How do you handle it?",options:["Stay quiet and just listen","Confidently put your point forward, even if it contradicts someone","Speak only when you truly feel it is necessary"]},
+    {text:"You put in real effort to plan something together. They cancel last minute. What is your response?",options:["Say it is okay, even when it is not — swallow it","React immediately, frustration comes out sharp","Calmly say it hurt you, once, then let it go"]}
+  ];
+  const Q_NAMES=["The Thief","The Bus Seat","The Rumour","The New Group","The Cancellation"];
+  function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+  function selectRole(r){createRole=r;document.getElementById('role-girl').classList.toggle('selected',r==='girl');document.getElementById('role-boy').classList.toggle('selected',r==='boy');}
+  function selectJoinRole(r){joinRole=r;document.getElementById('join-role-girl').classList.toggle('selected',r==='girl');document.getElementById('join-role-boy').classList.toggle('selected',r==='boy');}
+  function showError(id,msg){const el=document.getElementById(id);el.textContent=msg;el.classList.add('show');}
+  function hideError(id){document.getElementById(id).classList.remove('show');}
+  async function createRoom(){if(!createRole){showError('create-error','Please select your role first');return;}hideError('create-error');myRole=createRole;try{const res=await fetch(API+'/api/create-room',{method:'POST'});const data=await res.json();roomCode=data.roomCode;document.getElementById('display-code').textContent=roomCode;showScreen('screen-roomcode');}catch(e){showError('create-error','Could not connect to server.');}}
+  function copyCode(){navigator.clipboard.writeText(roomCode).then(()=>{document.querySelector('.copy-hint').textContent='Copied!';setTimeout(()=>document.querySelector('.copy-hint').textContent='tap to copy',2000);});}
+  async function joinRoom(){const code=document.getElementById('join-code').value.trim().toUpperCase();if(!code||code.length!==6){showError('join-error','Please enter a valid 6-character code.');return;}if(!joinRole){showError('join-error','Please select your role');return;}hideError('join-error');try{const res=await fetch(API+'/api/room/'+code);const data=await res.json();if(!data.exists){showError('join-error','Room not found. Check the code.');return;}roomCode=code;myRole=joinRole;startQuiz();}catch(e){showError('join-error','Could not connect to server.');}}
+  function startQuiz(){currentQ=0;answers=[null,null,null,null,null];renderQuestion();showScreen('screen-quiz');}
+  function renderQuestion(){const q=QUESTIONS[currentQ];const dots=document.getElementById('progress-dots');dots.innerHTML='';for(let i=0;i<5;i++){const d=document.createElement('div');d.className='progress-dot'+(i<currentQ?' done':i===currentQ?' active':'');dots.appendChild(d);}document.getElementById('q-num').textContent='Question '+(currentQ+1)+' of 5';document.getElementById('q-text').textContent=q.text;const optDiv=document.getElementById('q-options');optDiv.innerHTML='';q.options.forEach((opt,i)=>{const btn=document.createElement('button');btn.className='option-btn'+(answers[currentQ]===i+1?' selected':'');btn.innerHTML='<span class="option-num">'+(i+1)+'</span><span>'+opt+'</span>';btn.onclick=()=>selectAnswer(i+1);optDiv.appendChild(btn);});document.getElementById('btn-prev').style.display=currentQ===0?'none':'block';document.getElementById('btn-next').textContent=currentQ===4?'Submit':'Next';}
+  function selectAnswer(num){answers[currentQ]=num;document.querySelectorAll('.option-btn').forEach((btn,i)=>btn.classList.toggle('selected',i+1===num));}
+  function prevQuestion(){if(currentQ>0){currentQ--;renderQuestion();}}
+  function nextQuestion(){if(answers[currentQ]===null)return;if(currentQ<4){currentQ++;renderQuestion();}else{submitAnswers();}}
+  async function submitAnswers(){try{const res=await fetch(API+'/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({roomCode,role:myRole,answers})});const data=await res.json();if(!data.success){alert(data.message);return;}if(data.bothDone){fetchResults();}else{showScreen('screen-waiting');startPolling();}}catch(e){alert('Submission failed.');}}
+  function startPolling(){pollInterval=setInterval(async()=>{try{const res=await fetch(API+'/api/results/'+roomCode);const data=await res.json();if(data.ready){clearInterval(pollInterval);showResults(data);}}catch(e){}},2500);}
+  async function fetchResults(){try{const res=await fetch(API+'/api/results/'+roomCode);const data=await res.json();if(data.ready)showResults(data);}catch(e){}}
+  function getScoreMessage(score){if(score>=85)return"Your hearts speak the same language 💕";if(score>=70)return"You understand each other beautifully 🌸";if(score>=55)return"You complement each other well 💗";if(score>=40)return"You see things differently — and that is okay 🌷";return"Opposites can teach each other a lot 🤍";}
+  function showResults(data){document.getElementById('final-score-num').textContent=data.finalScore+'%';document.getElementById('score-msg').textContent=getScoreMessage(data.finalScore);const container=document.getElementById('per-question-results');container.innerHTML='';data.scores.forEach((score,i)=>{const girl=data.girlAnswers[i],boy=data.boyAnswers[i];const div=document.createElement('div');div.className='q-result';div.innerHTML='<div class="q-result-header"><span class="q-result-name">'+Q_NAMES[i]+'</span><span class="q-result-score">'+score+'%</span></div><div class="q-result-answers">Her choice: Option '+girl+' &nbsp;·&nbsp; His choice: Option '+boy+'</div><div class="q-bar-bg"><div class="q-bar-fill" style="width:0%" data-width="'+score+'%"></div></div>';container.appendChild(div);});showScreen('screen-results');setTimeout(()=>document.querySelectorAll('.q-bar-fill').forEach(b=>b.style.width=b.dataset.width),120);}
+  function resetAll(){roomCode='';myRole='';createRole='';joinRole='';currentQ=0;answers=[null,null,null,null,null];if(pollInterval)clearInterval(pollInterval);['role-girl','role-boy','join-role-girl','join-role-boy'].forEach(id=>document.getElementById(id).classList.remove('selected'));document.getElementById('join-code').value='';}
+</script>
+</body>
+</html>
