@@ -6,11 +6,12 @@ public class Room {
     private Integer[] boyAnswers;
     private boolean girlDone = false;
     private boolean boyDone = false;
+    private int[] questionIndices;
 
     public Room(String roomCode) {
         this.roomCode = roomCode;
-        this.girlAnswers = new Integer[5];
-        this.boyAnswers = new Integer[5];
+        this.girlAnswers = new Integer[10];
+        this.boyAnswers = new Integer[10];
     }
 
     public String getRoomCode() { return roomCode; }
@@ -19,6 +20,8 @@ public class Room {
     public boolean isGirlDone() { return girlDone; }
     public boolean isBoyDone() { return boyDone; }
     public boolean isBothDone() { return girlDone && boyDone; }
+    public int[] getQuestionIndices() { return questionIndices; }
+    public void setQuestionIndices(int[] indices) { this.questionIndices = indices; }
 
     public void setGirlAnswers(Integer[] answers) {
         this.girlAnswers = answers;

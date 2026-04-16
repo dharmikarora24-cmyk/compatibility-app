@@ -21,7 +21,6 @@ public class RoomService {
             for (int i = 0; i < 6; i++) sb.append(CHARS.charAt(random.nextInt(CHARS.length())));
             code = sb.toString();
         } while (rooms.containsKey(code));
-
         rooms.put(code, new Room(code));
         return code;
     }
@@ -32,5 +31,10 @@ public class RoomService {
 
     public boolean roomExists(String code) {
         return rooms.containsKey(code.toUpperCase());
+    }
+
+    public void setQuestionIndices(String code, int[] indices) {
+        Room room = rooms.get(code.toUpperCase());
+        if (room != null) room.setQuestionIndices(indices);
     }
 }

@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -22,10 +21,13 @@ public class RoomController {
     private CompatibilityService compatibilityService;
 
     @PostMapping("/create-room")
-    public ResponseEntity<Map<String, String>> createRoom() {
+    public ResponseEntity<Map<String, Object>> createRoom() {
         String code = roomService.createRoom();
-        Map<String, String> resp = new HashMap<>();
+        int[] indices = generateRandomIndices();
+        roomService.setQuestionIndices(code, indices);
+        Map<String, Object> resp = new HashMap<>();
         resp.put("roomCode", code);
+        resp.put("questionIndices", indices);
         return ResponseEntity.ok(resp);
     }
 
@@ -41,6 +43,7 @@ public class RoomController {
         resp.put("girlDone", room.isGirlDone());
         resp.put("boyDone", room.isBoyDone());
         resp.put("bothDone", room.isBothDone());
+        resp.put("questionIndices", room.getQuestionIndices());
         return ResponseEntity.ok(resp);
     }
 
@@ -64,14 +67,14 @@ public class RoomController {
         if (role.equals("girl")) {
             if (room.isGirlDone()) {
                 resp.put("success", false);
-                resp.put("message", "Girl has already submitted");
+                resp.put("message", "Already submitted");
                 return ResponseEntity.badRequest().body(resp);
             }
             room.setGirlAnswers(answers);
         } else {
             if (room.isBoyDone()) {
                 resp.put("success", false);
-                resp.put("message", "Boy has already submitted");
+                resp.put("message", "Already submitted");
                 return ResponseEntity.badRequest().body(resp);
             }
             room.setBoyAnswers(answers);
@@ -101,7 +104,8 @@ public class RoomController {
             return ResponseEntity.ok(resp);
         }
 
-        double[] scores = compatibilityService.calculateScores(room.getGirlAnswers(), room.getBoyAnswers());
+        int[] indices = room.getQuestionIndices();
+        double[] scores = compatibilityService.calculateScores(room.getGirlAnswers(), room.getBoyAnswers(), indices);
         double finalScore = compatibilityService.calculateFinalScore(scores);
         String label = compatibilityService.getCompatibilityLabel(finalScore);
 
@@ -111,6 +115,16 @@ public class RoomController {
         resp.put("label", label);
         resp.put("girlAnswers", room.getGirlAnswers());
         resp.put("boyAnswers", room.getBoyAnswers());
+        resp.put("questionIndices", indices);
         return ResponseEntity.ok(resp);
+    }
+
+    private int[] generateRandomIndices() {
+        List<Integer> all = new ArrayList<>();
+        for (int i = 0; i < 50; i++) all.add(i);
+        Collections.shuffle(all);
+        int[] result = new int[10];
+        for (int i = 0; i < 10; i++) result[i] = all.get(i);
+        return result;
     }
 }

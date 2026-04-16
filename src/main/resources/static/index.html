@@ -7,9 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Lato:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg: #fff5f7; --bg2: #ffeef2; --card: #ffffff;
-      --border: rgba(220,130,150,0.2); --accent: #e8748a;
-      --accent2: #f4a0b0; --accent3: #fbc8d2;
+      --bg: #fff5f7; --card: #ffffff; --border: rgba(220,130,150,0.2);
+      --accent: #e8748a; --accent2: #f4a0b0; --accent3: #fbc8d2;
       --text: #3a2030; --muted: rgba(58,32,48,0.5); --soft: #f9e4ea;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -44,18 +43,17 @@
     .role-btn { padding: 18px 10px; border-radius: 16px; border: 1.5px solid var(--border); background: var(--soft); color: var(--muted); cursor: pointer; text-align: center; transition: all 0.2s; font-family: 'Lato', sans-serif; }
     .role-btn .role-emoji { font-size: 1.8rem; display: block; margin-bottom: 6px; }
     .role-btn .role-label { font-size: 0.82rem; font-weight: 500; }
-    .role-btn:hover, .role-btn.selected { border-color: var(--accent); color: var(--accent); background: #fff0f3; box-shadow: 0 2px 12px rgba(232,116,138,0.15); }
+    .role-btn:hover, .role-btn.selected { border-color: var(--accent); color: var(--accent); background: #fff0f3; }
     .room-code-box { background: linear-gradient(135deg, #fff0f3, #fce4ea); border: 1.5px solid var(--accent3); border-radius: 18px; padding: 24px; text-align: center; margin: 20px 0; }
     .room-code-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
     .room-code-value { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 600; color: var(--accent); letter-spacing: 0.25em; }
     .copy-hint { font-size: 0.75rem; color: var(--muted); margin-top: 10px; cursor: pointer; }
-    .copy-hint:hover { color: var(--accent); }
     .question-progress { display: flex; gap: 6px; margin-bottom: 22px; }
     .progress-dot { flex: 1; height: 4px; border-radius: 2px; background: var(--accent3); transition: background 0.3s; }
     .progress-dot.done { background: var(--accent); }
     .progress-dot.active { background: var(--accent2); }
     .question-num { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
-    .question-text { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 400; line-height: 1.55; color: var(--text); margin-bottom: 22px; }
+    .question-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 400; line-height: 1.6; color: var(--text); margin-bottom: 22px; }
     .options { display: flex; flex-direction: column; gap: 10px; }
     .option-btn { padding: 14px 18px; border-radius: 14px; border: 1.5px solid var(--border); background: var(--soft); color: var(--muted); cursor: pointer; text-align: left; font-family: 'Lato', sans-serif; font-size: 0.88rem; line-height: 1.4; transition: all 0.2s; display: flex; align-items: flex-start; gap: 12px; }
     .option-btn:hover { border-color: var(--accent2); color: var(--text); background: #fff6f8; }
@@ -87,6 +85,8 @@
     .divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; }
     .divider-line { flex: 1; height: 1px; background: var(--border); }
     .divider-text { font-size: 0.75rem; color: var(--muted); }
+    .share-btn { background: linear-gradient(135deg, #25D366, #128C7E); color: white; border: none; padding: 14px 20px; border-radius: 50px; width: 100%; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 500; margin-top: 10px; transition: all 0.2s; }
+    .share-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,0.3); }
   </style>
 </head>
 <body>
@@ -98,10 +98,10 @@
       <div class="logo-sub">A little test for two hearts</div>
       <div class="logo-tagline">"Be honest — this one is for you both." 💕</div>
     </div>
-    <div class="disclaimer"><strong>Heads up!</strong> All situations here are <strong>hypothetical</strong>. The results are based on a survey of real people's thoughts and reactions — not a scientific formula. Take it lightly, take it together. 🌸</div>
+    <div class="disclaimer"><strong>Heads up!</strong> All situations here are <strong>hypothetical</strong>. The results are based on a survey of real people's thoughts and reactions. Take it lightly, take it together. 🌸</div>
     <div class="card">
       <div class="card-title">Ready to find out?</div>
-      <div class="card-desc">Answer 5 real-life situations honestly and separately. See how close your hearts really are.</div>
+      <div class="card-desc">Answer 10 real-life situations honestly and separately. See how close your hearts really are.</div>
       <button class="btn btn-primary" onclick="showScreen('screen-create')">💕 Create a Room</button>
       <div class="divider"><div class="divider-line"></div><div class="divider-text">or</div><div class="divider-line"></div></div>
       <button class="btn btn-outline" onclick="showScreen('screen-join')">Join with Room Code</button>
@@ -153,7 +153,7 @@
   <div id="screen-quiz" class="screen">
     <div class="card">
       <div class="question-progress" id="progress-dots"></div>
-      <div class="question-num" id="q-num">Question 1 of 5</div>
+      <div class="question-num" id="q-num">Question 1 of 10</div>
       <div class="question-text" id="q-text"></div>
       <div class="options" id="q-options"></div>
       <div class="question-nav">
@@ -185,7 +185,8 @@
       <div class="disclaimer" style="margin-bottom:16px">Remember — these are <strong>hypothetical situations</strong>. Real compatibility is built every day, in small moments. This is just a fun peek. 💕</div>
       <div class="per-question-title">How you matched — situation by situation</div>
       <div id="per-question-results"></div>
-      <button class="btn btn-outline" style="margin-top:24px" onclick="showScreen('screen-home'); resetAll()">Take Again</button>
+      <button class="share-btn" onclick="shareResult()">Share on WhatsApp 💚</button>
+      <button class="btn btn-outline" style="margin-top:10px" onclick="showScreen('screen-home'); resetAll()">Take Again 🔁</button>
     </div>
   </div>
 </div>
@@ -194,35 +195,178 @@
   function spawnHeart(){const bg=document.getElementById('heartsBg');const h=document.createElement('div');h.className='heart';h.textContent=emojis[Math.floor(Math.random()*emojis.length)];h.style.left=Math.random()*100+'vw';h.style.fontSize=(0.9+Math.random()*1.2)+'rem';const dur=7+Math.random()*8;h.style.animationDuration=dur+'s';h.style.animationDelay=(Math.random()*4)+'s';bg.appendChild(h);setTimeout(()=>h.remove(),(dur+4)*1000);}
   setInterval(spawnHeart,800);
   for(let i=0;i<6;i++)setTimeout(spawnHeart,i*300);
+
   const API='';
-  let roomCode='',myRole='',createRole='',joinRole='',currentQ=0,answers=[null,null,null,null,null],pollInterval=null;
+  let roomCode='',myRole='',createRole='',joinRole='';
+  let currentQ=0,answers=new Array(10).fill(null),pollInterval=null;
+  let questionIndices=[];
+
   const QUESTIONS=[
-    {text:"A person stole your wallet and you caught them. They confessed they are truly needy. What do you do?",options:["Take them to the police","Beat them","Forgive them and give a chance"]},
-    {text:"You are on a bus with an injured leg. An old man rudely demands your seat, then starts fighting when you politely refuse. What do you do?",options:["Stand up and give the seat quietly","Reply back rudely","Ignore them until they cool down"]},
-    {text:"Your best friend shares something suspicious about your partner that could shake your trust. How do you react?",options:["Confront your partner and ask for an explanation","Fight and break up immediately","Trust your partner fully and defend them in front of your friend"]},
-    {text:"You are in a new group with seniors and struggle to express your views. How do you handle it?",options:["Stay quiet and just listen","Confidently put your point forward, even if it contradicts someone","Speak only when you truly feel it is necessary"]},
-    {text:"You put in real effort to plan something together. They cancel last minute. What is your response?",options:["Say it is okay, even when it is not — swallow it","React immediately, frustration comes out sharp","Calmly say it hurt you, once, then let it go"]}
+    {text:"Your partner was walking back alone when someone snatched their wallet and ran. They managed to catch the person — and when confronted, the thief broke down and confessed that they are going through a desperate time financially. Your partner has a choice to make in that moment. What do you expect them to do?",options:["Hand them over to the police — accountability matters regardless of circumstances","Forgive them, maybe even help them — empathy over everything","Lose their temper and handle it physically — anger took over"]},
+    {text:"Your partner is walking down the street and spots a wallet lying on the ground. They pick it up — it is full of cash but has absolutely no identification inside. No one around seems to have dropped it. They slip it into their pocket and come home. What do you think about their decision?",options:["Completely fine — no ID means no way to return it, finders keepers","Disappointed — they should have tried harder, maybe handed it to authorities","A little uneasy but would not make it a big deal between us"]},
+    {text:"Your partner's close friend got caught cheating in an important exam. Turns out your partner knew about it beforehand and chose to stay silent to protect the friendship. When you find out, you realise they had the chance to speak up. What do you think about how they handled it?",options:["Loyalty to a friend comes first — I understand their silence completely","Wrong move — integrity should come before friendship","I get why they did it but I wish they had made a better call"]},
+    {text:"Your partner accidentally scraped someone's parked car while reversing in a parking lot. Nobody was around, no cameras visible. They looked around, got back in the car, and drove away without leaving a note. They told you about it later casually. What goes through your mind?",options:["Honestly, most people would do the same — no point overthinking it","They should have left a note — it is just the right thing to do","Deeply uncomfortable with it — says something about their character"]},
+    {text:"Your partner went to buy something at a local shop and the shopkeeper accidentally handed them extra change. Your partner noticed but said nothing, pocketed the money, and came home laughing about it. What do you think?",options:["Hilarious — small wins in life, the shopkeeper should have been careful","They should have returned it — honesty in small things matters the most","Does not bother me much — it is a tiny amount, not worth the judgment"]},
+    {text:"Your partner was sitting on a bus, their leg visibly injured. An elderly man came in, spotted them, and rudely demanded the seat without any politeness. Your partner politely refused at first but the man started creating a scene. What do you expect your partner to do?",options:["Give up the seat quietly — avoid the drama, it is not worth it","Stand their ground firmly and reply back — rudeness should not be rewarded","Ignore the man completely and let him exhaust himself"]},
+    {text:"Your partner was standing in a long queue for almost 20 minutes. Just as they were about to reach the front, someone casually walked up and cut right in front of them. Your partner noticed but said absolutely nothing and let it go. What do you think?",options:["Mature response — not every battle deserves your energy","They should have politely but firmly said something — it is about self respect","I would have stepped in and said something on their behalf"]},
+    {text:"At a gathering with mutual friends, someone cracked a joke at your partner's expense — a little too personal, a little too public. Everyone laughed. Your partner laughed along too, brushing it off like it did not sting. What do you think about how they handled it?",options:["Smart — laughing it off kept the atmosphere light and drama free","They should have addressed it clearly — self respect matters in public","It hurts me that they did not stand up for themselves"]},
+    {text:"Your partner's neighbour has a habit of playing loud music late at night, and it has been happening for weeks. Instead of confronting anyone, your partner simply puts on earphones, adjusts, and sleeps. What do you think about their approach?",options:["Practical and peaceful — unnecessary conflict with neighbours is never worth it","They should have knocked on the door and had a polite conversation by now","Should have formally complained to building authorities — enough is enough"]},
+    {text:"Someone comes up to you and tells you that your partner was being quite flirtatious with someone at a party last weekend. When you bring it up, your partner says it was just them being friendly and social. What do you do with that?",options:["Trust them entirely — I know who they are and one rumour will not shake that","Have a calm, honest conversation — I need to express how it made me feel","Make it very clear that this kind of behaviour is not acceptable to me"]},
+    {text:"Your best friend pulls you aside one day with a look of concern. They tell you they have noticed something fishy about your partner — something that could shake the foundation of your trust. They seem genuine. What do you expect your partner to do if the roles were reversed?",options:["Confront their partner directly and ask for a clear explanation","Trust their partner completely and defend them in front of the friend","Pick a fight and consider ending things without fully investigating"]},
+    {text:"Late one night, your partner's phone lights up on the table while they are in the other room. You glance over and accidentally read a message that seems oddly intimate from someone you do not recognise. Your partner comes back and does not mention it. What do you do?",options:["Say nothing — it was accidental and I trust them completely","Bring it up honestly — pretending I did not see it would eat me alive","Start paying closer attention to their behaviour without saying anything yet"]},
+    {text:"There was a day that meant everything to you — an anniversary, a milestone, something deeply personal. Your partner forgot it entirely. No message, no call, not even a late realisation. You bring it up and they apologise but seem more casual about it than you expected. What do you do?",options:["Let it go — people forget things, it does not mean they do not care","Express clearly that it hurt — not to punish them but because they deserve to know","Bottle it up but feel a quiet distance growing inside"]},
+    {text:"Your partner told you a small lie — not about something major, but a lie nonetheless. When confronted, they explained they did it to protect your feelings and avoid hurting you. They seem genuinely sorry. What do you think?",options:["Appreciate the intention even if the method was wrong — they meant well","A lie is a lie — the road to honesty starts with the smallest truths","Forgive them this time but quietly file it away in the back of your mind"]},
+    {text:"You notice that your partner has been spending a noticeably increased amount of time with their ex lately — casual meetups, late replies to your texts, vague explanations. They insist it means nothing and that you are overthinking. What do you do?",options:["Trust them — jealousy is ugly and I refuse to let it control me","Have a mature conversation about boundaries — trust needs to be maintained actively","Feel deeply unsettled and find it hard to hide the insecurity"]},
+    {text:"Your partner finds themselves in a room full of people they have never met — mostly seniors, mostly opinionated. The conversation is flowing but your partner is struggling to find their moment to speak. What do you expect them to do?",options:["Sit back, listen, and absorb — there is wisdom in silence","Find their moment and speak up confidently, even if it means disagreeing","Speak only when something truly important needs to be said"]},
+    {text:"Your partner walks into a party where they know absolutely no one. The music is loud, the room is full of strangers, and there is no familiar face in sight. What do you expect them to do?",options:["Find a quiet corner, observe, and wait for someone to approach them","Walk up to someone confidently and start a conversation — new people excite them","Stay just long enough to not seem rude, then make a polite exit"]},
+    {text:"A close friend of your partner comes to them excitedly with a plan — something your partner clearly thinks is a terrible idea. The friend is emotionally invested. What do you expect your partner to say?",options:["Be fully honest even if it hurts — real friends tell the truth","Support the friend's enthusiasm while gently planting seeds of doubt","Say nothing negative — it is not their place to crush someone's excitement"]},
+    {text:"Your partner's friend group starts gossiping about someone your partner genuinely likes and respects. The conversation gets a little mean. What do you expect your partner to do?",options:["Stay quiet — speaking up in a group setting rarely ends well","Subtly redirect the conversation without making it awkward","Firmly but kindly defend the person being talked about"]},
+    {text:"Your partner is suddenly called upon to speak in front of a large unexpected crowd — no preparation, no warning. All eyes are on them. What do you expect from them?",options:["Take a deep breath, improvise, and make the best of it","Politely decline — they know their limits and that is okay","Power through visibly nervous but refuse to back down"]},
+    {text:"You had been looking forward to plans together for days. Your partner put in real effort to arrange everything. At the last minute, you cancelled. What do you expect your partner's reaction to be?",options:["Say it is okay even when it clearly is not — swallow the disappointment silently","React immediately with visible frustration — they cannot always mask their feelings","Calmly tell you it hurt, just once, and then genuinely let it go"]},
+    {text:"Your partner is visibly not okay — quieter than usual, distant, clearly carrying something heavy. You ask them if they are alright. What do you expect them to do?",options:["Say they are fine and shut the conversation down — they process alone","Open up slowly — they find it hard but they try because you asked","Break down and let it all out — they needed someone to ask"]},
+    {text:"Your partner worked incredibly hard toward something meaningful to them — and they failed. Not from lack of effort, just from circumstances. What do you expect their response to be?",options:["Dust themselves off quickly — they do not let failure linger","Take time to grieve it privately before bouncing back","Need you to sit with them in it before they can move forward"]},
+    {text:"Someone your partner deeply loves is going through one of the hardest phases of their life. Your partner has been their rock through it all. What do you expect from them in that role?",options:["Be fully present — drop everything and show up without being asked","Offer help but respect boundaries — not everyone wants to be smothered","Check in regularly but give space — love means knowing when to step back"]},
+    {text:"Your partner poured their heart into something — a project, a creation, an idea. Someone they respect responds with harsh, blunt criticism. What do you expect your partner to do?",options:["Take it on the chin — criticism is a gift if you know how to receive it","Feel it deeply but use it as fuel to do better","Get defensive initially but slowly come around to the feedback"]},
+    {text:"You and your partner have been saving together for a while. A moment comes where you both want to use that money differently — your visions do not align at all. What do you expect your partner to do?",options:["Have a calm discussion and find a middle ground together","Stand firm on their perspective — they have strong financial opinions","Let you have the final say to avoid conflict — keeping peace matters more to them"]},
+    {text:"Your partner's close friend comes to them asking to borrow a significant amount of money. Without consulting you, your partner agrees and lends it. What do you think?",options:["It is their money and their friendship — I trust their judgment completely","They should have discussed it with me first — we are a team","Uncomfortable with it but will not say anything to avoid seeming controlling"]},
+    {text:"Your partner receives an unexpected financial bonus at work — more than they expected. What do you think their first instinct would be?",options:["Save it — financial security always comes first","Treat themselves a little — they have earned it","Split it between saving, spending, and maybe a little something for you too"]},
+    {text:"Your partner spends a noticeable amount of money on something you personally find completely unnecessary. They seem genuinely happy about it. What do you do?",options:["Say nothing — it is their money and their happiness","Express your opinion once, clearly, and then drop it","Find it hard to let go of — financial decisions feel shared to you"]},
+    {text:"Your partner is going through a financially tight month — genuinely struggling. A friend reaches out needing help. What do you expect your partner to do?",options:["Find a way to help regardless — people over money, always","Be honest about their situation and offer what little they can","Politely decline — they cannot pour from an empty cup"]},
+    {text:"Your partner gets offered their absolute dream job — the one they have talked about for years. The only catch is that it requires relocating to a completely different city, away from you. What do you expect them to do?",options:["Take it without hesitation — dreams do not wait and distance can be managed","Have a serious conversation with you before making any decision","Turn it down — they would not sacrifice what you have for a job"]},
+    {text:"Your partner's career starts accelerating rapidly — promotions, recognition, opportunities — while yours feels stagnant in comparison. What do you expect your partner's attitude to be?",options:["Genuinely celebrate their growth without making you feel lesser","Be sensitive about how they talk about their success around you","Actively try to help you grow too — they do not believe in leaving their partner behind"]},
+    {text:"Your partner has a dream that most people around them — including family — think is unrealistic and foolish. What do you expect them to do?",options:["Chase it anyway — other people's doubts are not their responsibility","Take the opinions seriously and reconsider before going all in","Find a way to pursue it quietly without making it a public conversation"]},
+    {text:"Your partner comes to you one day and says they want to quit their stable job and start their own business. They are serious, they have thought about it, but the risk is real. What do you think?",options:["Back them fully — calculated risks are how great things are built","Support them emotionally but express your financial concerns honestly","Encourage them to wait until the timing is more secure"]},
+    {text:"Your partner is offered a significant promotion — more money, more prestige, but considerably less time for personal life and for you. What do you expect them to do?",options:["Take it — professional growth is important and you can adjust together","Negotiate the terms before accepting — work life balance is non negotiable","Decline if it means sacrificing the life you have built together"]},
+    {text:"Your partner's family has made it clear — politely but firmly — that they do not approve of your relationship. Your partner is caught in the middle. What do you expect them to do?",options:["Stand up for the relationship clearly and without hesitation","Try to slowly change the family's perspective with time and patience","Feel torn and struggle to take a clear side — family pressure is real"]},
+    {text:"Your partner and your best friend genuinely do not get along. The tension is real and it is starting to affect things. What do you expect your partner to do?",options:["Make a genuine effort to understand your friend better","Be civil and respectful even if the connection never comes naturally","Be honest with you that they cannot force chemistry — but they will always respect your friendship"]},
+    {text:"Your partner accidentally shared something deeply personal about you with their family — something you had told them in confidence. They apologise sincerely. What do you do?",options:["Forgive them — it was not malicious and they feel terrible about it","Forgive them but establish very clear boundaries going forward","Find it hard to fully trust them with vulnerable things for a while"]},
+    {text:"Your partner's family has a habit of involving themselves in your relationship decisions — opinions on everything from finances to your future. Your partner never fully pushes back. What do you think?",options:["Family involvement is normal in our culture — I can live with it","Your partner needs to draw clearer boundaries — this is your relationship","It bothers you deeply but you do not want to create conflict between them and their family"]},
+    {text:"Your partner's parents are getting older and request that your partner move back closer to home to be there for them. Your partner is seriously considering it without fully discussing it with you. What do you think?",options:["Respect it completely — family comes first and I would do the same","Need to be part of this conversation — it affects both of us equally","Feel sidelined but do not want to seem selfish by making it about you"]},
+    {text:"Your partner wants to try something genuinely adventurous — something that excites them but makes you a little nervous. They are enthusiastic and have been talking about it for weeks. What do you expect from them?",options:["Go for it and bring you along — life is short and comfort zones are meant to be broken","Respect your hesitation and find a middle ground you are both comfortable with","Go ahead on their own without pressure — they would not force you into discomfort"]},
+    {text:"You are on a date and you both want completely different things — your food preferences are on opposite ends of the spectrum. What do you expect your partner to do?",options:["Compromise immediately — it is just food and your happiness matters more","Suggest trying something new together — adventure is more fun than comfort","Split the difference — each of you gets what you want, no one sacrifices"]},
+    {text:"Your partner is consistently, almost reliably late — to plans, to dates, to everything. It has become a pattern. What do you think about it?",options:["It is just who they are — I have made peace with adjusting my expectations","I have brought it up and I expect them to genuinely work on it","It bothers me more than I let on — punctuality feels like respect to me"]},
+    {text:"You love going out — events, people, energy. Your partner is a true homebody and prefers quiet evenings in. What do you expect from them?",options:["Make the effort to step out sometimes even if it drains them","Find a healthy balance — some nights out, some nights in","Stay true to who they are and trust that you will meet in the middle"]},
+    {text:"Every time you spend quality time together, your partner's phone is in their hand — notifications, scrolling, half present. What do you do?",options:["Let it go — everyone has their habits and it does not mean they do not care","Bring it up gently — presence is something you value deeply","Start doing the same — if you cannot beat them, join them"]},
+    {text:"You find out through a mutual friend that your partner was being noticeably flirtatious with someone at a gathering you did not attend. When confronted, your partner insists they were just being warm and social. What do you do?",options:["Trust them completely — I know their character and one story will not change that","Express calmly how it made you feel — not as an accusation but as a feeling","Make it very clear that this crosses a line for you — boundaries exist for a reason"]},
+    {text:"It is past midnight. Your partner is lying beside you, quietly smiling at their phone. The light from the screen illuminates their face. They put it away when they notice you watching. What goes through your mind?",options:["Nothing — I trust them and late night conversations happen","A quiet unease — not enough to act on but enough to notice","Ask directly and honestly — I would rather know than wonder"]},
+    {text:"Your partner told you a small lie — not about something major, but a lie nonetheless. Later they confess they did it because they did not want to hurt you. What do you think?",options:["The intention behind it matters — they were trying to protect me","Even well meaning lies are still lies — honesty is the foundation","Forgive them this once but quietly keep it in mind going forward"]},
+    {text:"Your partner cancelled your plans citing they were not feeling well. An hour later, you see them actively posting stories at a social gathering with friends. What do you do?",options:["Bring it up directly — this deserves an honest conversation","Feel deeply hurt but wait for them to come to you","Let it go this time but notice a quiet shift in how much you share next time"]},
+    {text:"After a long honest conversation, you and your partner realise you have genuinely different visions of what your ideal life looks like — different cities, different lifestyles, different priorities. What do you expect your partner to do?",options:["Believe love is enough to bridge any gap — they will figure it out together","Have multiple honest conversations and see if a shared vision can be built","Acknowledge the difference maturely — some gaps are too wide to ignore"]}
   ];
-  const Q_NAMES=["The Thief","The Bus Seat","The Rumour","The New Group","The Cancellation"];
+
+  const Q_NAMES=["The Thief","The Wallet","The Exam","The Scratch","The Extra Change","The Bus Seat","The Queue","The Joke","The Midnight Music","The Party Rumour","The Suspicious Friend","The Unlocked Phone","The Forgotten Day","The Small Lie","The Ex","The New Group","The Party","The Bad Idea","The Gossip Circle","The Unexpected Speech","The Cancellation","The Stress Wall","The Failure","The Support Role","The Criticism","The Money Disagreement","The Loan Request","The Bonus","The Wasteful Spend","The Broke Friend","The Dream Job","The Career Gap","The Big Dream","The Career Risk","The Promotion","The Family Disapproval","The Friendship Clash","The Privacy Breach","The Interference","The Homecoming","The Adventure","The Food Battle","The Lateness","The Homebody","The Phone Problem","The Flirtatious Partner","The Late Night Text","The Secret Lie","The Story Post","The Different Life Vision"];
+
   function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
   function selectRole(r){createRole=r;document.getElementById('role-girl').classList.toggle('selected',r==='girl');document.getElementById('role-boy').classList.toggle('selected',r==='boy');}
   function selectJoinRole(r){joinRole=r;document.getElementById('join-role-girl').classList.toggle('selected',r==='girl');document.getElementById('join-role-boy').classList.toggle('selected',r==='boy');}
   function showError(id,msg){const el=document.getElementById(id);el.textContent=msg;el.classList.add('show');}
   function hideError(id){document.getElementById(id).classList.remove('show');}
-  async function createRoom(){if(!createRole){showError('create-error','Please select your role first');return;}hideError('create-error');myRole=createRole;try{const res=await fetch(API+'/api/create-room',{method:'POST'});const data=await res.json();roomCode=data.roomCode;document.getElementById('display-code').textContent=roomCode;showScreen('screen-roomcode');}catch(e){showError('create-error','Could not connect to server.');}}
+
+  async function createRoom(){
+    if(!createRole){showError('create-error','Please select your role first');return;}
+    hideError('create-error');myRole=createRole;
+    try{
+      const res=await fetch(API+'/api/create-room',{method:'POST'});
+      const data=await res.json();
+      roomCode=data.roomCode;
+      questionIndices=data.questionIndices;
+      document.getElementById('display-code').textContent=roomCode;
+      showScreen('screen-roomcode');
+    }catch(e){showError('create-error','Could not connect to server.');}
+  }
+
   function copyCode(){navigator.clipboard.writeText(roomCode).then(()=>{document.querySelector('.copy-hint').textContent='Copied!';setTimeout(()=>document.querySelector('.copy-hint').textContent='tap to copy',2000);});}
-  async function joinRoom(){const code=document.getElementById('join-code').value.trim().toUpperCase();if(!code||code.length!==6){showError('join-error','Please enter a valid 6-character code.');return;}if(!joinRole){showError('join-error','Please select your role');return;}hideError('join-error');try{const res=await fetch(API+'/api/room/'+code);const data=await res.json();if(!data.exists){showError('join-error','Room not found. Check the code.');return;}roomCode=code;myRole=joinRole;startQuiz();}catch(e){showError('join-error','Could not connect to server.');}}
-  function startQuiz(){currentQ=0;answers=[null,null,null,null,null];renderQuestion();showScreen('screen-quiz');}
-  function renderQuestion(){const q=QUESTIONS[currentQ];const dots=document.getElementById('progress-dots');dots.innerHTML='';for(let i=0;i<5;i++){const d=document.createElement('div');d.className='progress-dot'+(i<currentQ?' done':i===currentQ?' active':'');dots.appendChild(d);}document.getElementById('q-num').textContent='Question '+(currentQ+1)+' of 5';document.getElementById('q-text').textContent=q.text;const optDiv=document.getElementById('q-options');optDiv.innerHTML='';q.options.forEach((opt,i)=>{const btn=document.createElement('button');btn.className='option-btn'+(answers[currentQ]===i+1?' selected':'');btn.innerHTML='<span class="option-num">'+(i+1)+'</span><span>'+opt+'</span>';btn.onclick=()=>selectAnswer(i+1);optDiv.appendChild(btn);});document.getElementById('btn-prev').style.display=currentQ===0?'none':'block';document.getElementById('btn-next').textContent=currentQ===4?'Submit':'Next';}
+
+  async function joinRoom(){
+    const code=document.getElementById('join-code').value.trim().toUpperCase();
+    if(!code||code.length!==6){showError('join-error','Please enter a valid 6-character code.');return;}
+    if(!joinRole){showError('join-error','Please select your role');return;}
+    hideError('join-error');
+    try{
+      const res=await fetch(API+'/api/room/'+code);
+      const data=await res.json();
+      if(!data.exists){showError('join-error','Room not found. Check the code.');return;}
+      roomCode=code;myRole=joinRole;
+      questionIndices=data.questionIndices;
+      startQuiz();
+    }catch(e){showError('join-error','Could not connect to server.');}
+  }
+
+  function startQuiz(){currentQ=0;answers=new Array(10).fill(null);renderQuestion();showScreen('screen-quiz');}
+
+  function renderQuestion(){
+    const qIdx=questionIndices[currentQ];
+    const q=QUESTIONS[qIdx];
+    const dots=document.getElementById('progress-dots');dots.innerHTML='';
+    for(let i=0;i<10;i++){const d=document.createElement('div');d.className='progress-dot'+(i<currentQ?' done':i===currentQ?' active':'');dots.appendChild(d);}
+    document.getElementById('q-num').textContent='Question '+(currentQ+1)+' of 10';
+    document.getElementById('q-text').textContent=q.text;
+    const optDiv=document.getElementById('q-options');optDiv.innerHTML='';
+    q.options.forEach((opt,i)=>{
+      const btn=document.createElement('button');
+      btn.className='option-btn'+(answers[currentQ]===i+1?' selected':'');
+      btn.innerHTML='<span class="option-num">'+(i+1)+'</span><span>'+opt+'</span>';
+      btn.onclick=()=>selectAnswer(i+1);
+      optDiv.appendChild(btn);
+    });
+    document.getElementById('btn-prev').style.display=currentQ===0?'none':'block';
+    document.getElementById('btn-next').textContent=currentQ===9?'Submit':'Next';
+  }
+
   function selectAnswer(num){answers[currentQ]=num;document.querySelectorAll('.option-btn').forEach((btn,i)=>btn.classList.toggle('selected',i+1===num));}
   function prevQuestion(){if(currentQ>0){currentQ--;renderQuestion();}}
-  function nextQuestion(){if(answers[currentQ]===null)return;if(currentQ<4){currentQ++;renderQuestion();}else{submitAnswers();}}
-  async function submitAnswers(){try{const res=await fetch(API+'/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({roomCode,role:myRole,answers})});const data=await res.json();if(!data.success){alert(data.message);return;}if(data.bothDone){fetchResults();}else{showScreen('screen-waiting');startPolling();}}catch(e){alert('Submission failed.');}}
+  function nextQuestion(){if(answers[currentQ]===null)return;if(currentQ<9){currentQ++;renderQuestion();}else{submitAnswers();}}
+
+  async function submitAnswers(){
+    try{
+      const res=await fetch(API+'/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({roomCode,role:myRole,answers})});
+      const data=await res.json();
+      if(!data.success){alert(data.message);return;}
+      if(data.bothDone){fetchResults();}else{showScreen('screen-waiting');startPolling();}
+    }catch(e){alert('Submission failed.');}
+  }
+
   function startPolling(){pollInterval=setInterval(async()=>{try{const res=await fetch(API+'/api/results/'+roomCode);const data=await res.json();if(data.ready){clearInterval(pollInterval);showResults(data);}}catch(e){}},2500);}
   async function fetchResults(){try{const res=await fetch(API+'/api/results/'+roomCode);const data=await res.json();if(data.ready)showResults(data);}catch(e){}}
-  function getScoreMessage(score){if(score>=85)return"Your hearts speak the same language 💕";if(score>=70)return"You understand each other beautifully 🌸";if(score>=55)return"You complement each other well 💗";if(score>=40)return"You see things differently — and that is okay 🌷";return"Opposites can teach each other a lot 🤍";}
-  function showResults(data){document.getElementById('final-score-num').textContent=data.finalScore+'%';document.getElementById('score-msg').textContent=getScoreMessage(data.finalScore);const container=document.getElementById('per-question-results');container.innerHTML='';data.scores.forEach((score,i)=>{const girl=data.girlAnswers[i],boy=data.boyAnswers[i];const div=document.createElement('div');div.className='q-result';div.innerHTML='<div class="q-result-header"><span class="q-result-name">'+Q_NAMES[i]+'</span><span class="q-result-score">'+score+'%</span></div><div class="q-result-answers">Her choice: Option '+girl+' &nbsp;·&nbsp; His choice: Option '+boy+'</div><div class="q-bar-bg"><div class="q-bar-fill" style="width:0%" data-width="'+score+'%"></div></div>';container.appendChild(div);});showScreen('screen-results');setTimeout(()=>document.querySelectorAll('.q-bar-fill').forEach(b=>b.style.width=b.dataset.width),120);}
-  function resetAll(){roomCode='';myRole='';createRole='';joinRole='';currentQ=0;answers=[null,null,null,null,null];if(pollInterval)clearInterval(pollInterval);['role-girl','role-boy','join-role-girl','join-role-boy'].forEach(id=>document.getElementById(id).classList.remove('selected'));document.getElementById('join-code').value='';}
+
+  function getScoreMessage(score){
+    if(score>=85)return"Your hearts speak the same language 💕";
+    if(score>=70)return"You understand each other beautifully 🌸";
+    if(score>=55)return"You complement each other well 💗";
+    if(score>=40)return"You see things differently — and that is okay 🌷";
+    return"Opposites can teach each other a lot 🤍";
+  }
+
+  let finalScoreForShare=0;
+  function showResults(data){
+    finalScoreForShare=data.finalScore;
+    document.getElementById('final-score-num').textContent=data.finalScore+'%';
+    document.getElementById('score-msg').textContent=getScoreMessage(data.finalScore);
+    const container=document.getElementById('per-question-results');container.innerHTML='';
+    const indices=data.questionIndices||questionIndices;
+    data.scores.forEach((score,i)=>{
+      const girl=data.girlAnswers[i],boy=data.boyAnswers[i];
+      const qName=Q_NAMES[indices[i]];
+      const div=document.createElement('div');div.className='q-result';
+      div.innerHTML='<div class="q-result-header"><span class="q-result-name">'+qName+'</span><span class="q-result-score">'+score+'%</span></div><div class="q-result-answers">Her choice: Option '+girl+' &nbsp;·&nbsp; His choice: Option '+boy+'</div><div class="q-bar-bg"><div class="q-bar-fill" style="width:0%" data-width="'+score+'%"></div></div>';
+      container.appendChild(div);
+    });
+    showScreen('screen-results');
+    setTimeout(()=>document.querySelectorAll('.q-bar-fill').forEach(b=>b.style.width=b.dataset.width),120);
+  }
+
+  function shareResult(){
+    const msg='We just took the Are We Compatible test and scored '+finalScoreForShare+'% compatibility! 💕 Try it with your partner: https://compatibility-app-z2ta.onrender.com';
+    window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+  }
+
+  function resetAll(){
+    roomCode='';myRole='';createRole='';joinRole='';currentQ=0;
+    answers=new Array(10).fill(null);questionIndices=[];
+    if(pollInterval)clearInterval(pollInterval);
+    ['role-girl','role-boy','join-role-girl','join-role-boy'].forEach(id=>document.getElementById(id).classList.remove('selected'));
+    document.getElementById('join-code').value='';
+  }
 </script>
 </body>
 </html>
