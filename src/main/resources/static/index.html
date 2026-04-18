@@ -37,7 +37,7 @@
     .btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--muted); }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
     .btn + .btn { margin-top: 10px; }
-    input[type="text"] { width: 100%; background: var(--soft); border: 1.5px solid var(--border); border-radius: 12px; padding: 13px 16px; color: var(--text); font-family: 'Lato', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; margin-bottom: 12px; letter-spacing: 0.1em; }
+    input[type="text"] { width: 100%; background: var(--soft); border: 1.5px solid var(--border); border-radius: 12px; padding: 13px 16px; color: var(--text); font-family: 'Lato', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; margin-bottom: 12px; letter-spacing: 0.05em; }
     input[type="text"]:focus { border-color: var(--accent); background: #fff; }
     input[type="text"]::placeholder { color: var(--muted); }
     .role-select { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
@@ -49,45 +49,31 @@
     .room-code-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
     .room-code-value { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 600; color: var(--accent); letter-spacing: 0.25em; }
     .copy-hint { font-size: 0.75rem; color: var(--muted); margin-top: 10px; cursor: pointer; }
-
-    /* QUIZ STYLES */
     .question-progress { display: flex; gap: 6px; margin-bottom: 22px; }
     .progress-dot { flex: 1; height: 4px; border-radius: 2px; background: var(--accent3); transition: background 0.3s; }
     .progress-dot.done { background: var(--accent); }
     .progress-dot.active { background: var(--accent2); }
     .question-num { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
-
-    /* MOOD CARD */
-    .mood-card { border-radius: 16px; padding: 20px; margin-bottom: 20px; position: relative; overflow: hidden; min-height: 80px; display: flex; align-items: center; justify-content: center; transition: all 0.5s ease; }
-    .mood-card-pattern { position: absolute; inset: 0; opacity: 0.08; }
-    .mood-icon { font-size: 2.5rem; z-index: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
-
-    /* TYPEWRITER */
+    .mood-card { border-radius: 16px; padding: 16px 20px; margin-bottom: 20px; transition: all 0.5s ease; }
     .question-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 400; line-height: 1.6; color: var(--text); margin-bottom: 22px; min-height: 80px; }
     .cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--accent); margin-left: 2px; animation: blink 0.7s infinite; vertical-align: text-bottom; }
     @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-
-    /* OPTIONS */
     .options { display: flex; flex-direction: column; gap: 10px; }
     .option-btn { padding: 14px 18px; border-radius: 14px; border: 1.5px solid var(--border); background: var(--soft); color: var(--muted); cursor: pointer; text-align: left; font-family: 'Lato', sans-serif; font-size: 0.88rem; line-height: 1.4; transition: all 0.25s; display: flex; align-items: flex-start; gap: 12px; opacity: 0; transform: translateY(10px); position: relative; overflow: hidden; }
     .option-btn.visible { opacity: 1; transform: translateY(0); }
     .option-btn:hover { border-color: var(--accent2); color: var(--text); background: #fff6f8; transform: translateX(4px); }
-    .option-btn.selected { border-color: var(--accent); color: var(--accent); background: #fff0f3; transform: translateX(4px); }
-    .option-btn.selected::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(232,116,138,0.15) 0%, transparent 70%); animation: ripple 0.5s ease; }
-    @keyframes ripple { 0%{transform:scale(0);opacity:1;} 100%{transform:scale(2);opacity:0;} }
+    .option-btn.selected { border-color: var(--accent); color: white; background: linear-gradient(135deg, #e8748a, #f4a0b0); transform: translateX(4px); }
+    .option-btn.selected .option-num { background: rgba(255,255,255,0.3); border-color: white; color: white; }
     .option-num { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; flex-shrink: 0; margin-top: 1px; transition: all 0.2s; }
-    .option-btn.selected .option-num { background: var(--accent); border-color: var(--accent); color: white; }
+    .pop-heart { position: absolute; pointer-events: none; font-size: 1.2rem; animation: heartPop 0.8s ease forwards; z-index: 10; }
+    @keyframes heartPop { 0%{transform:scale(0) translateY(0);opacity:1;} 50%{transform:scale(1.3) translateY(-20px);opacity:1;} 100%{transform:scale(0.8) translateY(-50px);opacity:0;} }
     .question-nav { display: flex; gap: 10px; margin-top: 22px; }
     .question-nav .btn { flex: 1; }
-
-    /* WAITING */
     .waiting-anim { text-align: center; padding: 24px 0; }
     .heart-pulse { font-size: 3.5rem; animation: pulse 1.4s ease-in-out infinite; display: block; margin-bottom: 18px; }
     @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
     .waiting-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--text); margin-bottom: 8px; }
     .waiting-sub { font-size: 0.82rem; color: var(--muted); }
-
-    /* RESULTS */
     .results-header { text-align: center; padding: 10px 0 24px; }
     .results-hearts { font-size: 1.4rem; letter-spacing: 6px; margin-bottom: 16px; animation: pulse 2s ease-in-out infinite; }
     .score-circle { width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, #fff0f3, #fce4ea); border: 3px solid var(--accent3); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 16px; box-shadow: 0 8px 32px rgba(232,116,138,0.2); animation: scaleIn 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards; }
@@ -95,6 +81,7 @@
     .score-num { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 600; color: var(--accent); line-height: 1; }
     .score-pct { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
     .score-msg { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; color: var(--muted); margin-top: 8px; }
+    .names-display { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--accent); margin-top: 6px; font-style: italic; }
     .per-question-title { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin: 20px 0 14px; }
     .q-result { margin-bottom: 16px; opacity: 0; transform: translateY(8px); animation: slideIn 0.4s ease forwards; }
     @keyframes slideIn { to{opacity:1;transform:translateY(0);} }
@@ -109,10 +96,8 @@
     .divider { display: flex; align-items: center; gap: 12px; margin: 18px 0; }
     .divider-line { flex: 1; height: 1px; background: var(--border); }
     .divider-text { font-size: 0.75rem; color: var(--muted); }
-    .share-btn { background: linear-gradient(135deg, #25D366, #128C7E); color: white; border: none; padding: 14px 20px; border-radius: 50px; width: 100%; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 500; margin-top: 10px; transition: all 0.2s; }
-    .share-btn:hover { transform: translateY(-2px); }
-
-    /* CONFETTI */
+    .share-btn { background: #25D366; color: white; border: none; padding: 14px 20px; border-radius: 50px; width: 100%; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 500; margin-top: 10px; transition: all 0.2s; }
+    .share-btn:hover { transform: translateY(-2px); background: #128C7E; }
     .confetti-piece { position: fixed; width: 8px; height: 8px; border-radius: 2px; pointer-events: none; z-index: 999; animation: confettiFall linear forwards; }
     @keyframes confettiFall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1;} 100%{transform:translateY(100vh) rotate(720deg);opacity:0;} }
   </style>
@@ -131,17 +116,18 @@
     <div class="card">
       <div class="card-title">Ready to find out?</div>
       <div class="card-desc">Answer 10 real-life situations honestly and separately. See how close your hearts really are.</div>
-      <button class="btn btn-primary" onclick="showScreen('screen-create')">💕 Create a Room</button>
+      <button class="btn btn-primary" onclick="showScreen('screen-name')">💕 Create a Room</button>
       <div class="divider"><div class="divider-line"></div><div class="divider-text">or</div><div class="divider-line"></div></div>
       <button class="btn btn-outline" onclick="showScreen('screen-join')">Join with Room Code</button>
     </div>
   </div>
 
-  <div id="screen-create" class="screen">
-    <div class="logo"><div class="logo-title">Create a <span>Room</span></div></div>
+  <div id="screen-name" class="screen">
+    <div class="logo"><div class="logo-title">What's your <span>name?</span></div></div>
     <div class="card">
-      <div class="card-title">Who are you?</div>
-      <div class="card-desc">Pick your role — your partner will join with the room code you share.</div>
+      <div class="card-title">Tell us who you are</div>
+      <div class="card-desc">Your name will appear on the results. Make it count 💕</div>
+      <input type="text" id="creator-name" placeholder="Your first name..." maxlength="20"/>
       <div class="role-select">
         <button class="role-btn" id="role-girl" onclick="selectRole('girl')"><span class="role-emoji">👩</span><span class="role-label">Girl</span></button>
         <button class="role-btn" id="role-boy" onclick="selectRole('boy')"><span class="role-emoji">👦</span><span class="role-label">Boy</span></button>
@@ -172,6 +158,7 @@
       <div class="card-title">Enter the room code</div>
       <div class="card-desc">Your partner should share a 6-character code with you.</div>
       <input type="text" id="join-code" placeholder="e.g. AB12CD" maxlength="6" style="text-transform:uppercase"/>
+      <input type="text" id="joiner-name" placeholder="Your first name..." maxlength="20"/>
       <div class="card-title" style="margin-top:14px">And you are...?</div>
       <div class="role-select" style="margin-top:12px">
         <button class="role-btn" id="join-role-girl" onclick="selectJoinRole('girl')"><span class="role-emoji">👩</span><span class="role-label">Girl</span></button>
@@ -187,9 +174,7 @@
     <div class="card">
       <div class="question-progress" id="progress-dots"></div>
       <div class="question-num" id="q-num">Question 1 of 10</div>
-      <div class="mood-card" id="mood-card">
-        <div class="mood-icon" id="mood-icon">💭</div>
-      </div>
+      <div class="mood-card" id="mood-card"></div>
       <div class="question-text" id="q-text"></div>
       <div class="options" id="q-options"></div>
       <div class="question-nav">
@@ -218,12 +203,13 @@
           <div class="score-num" id="final-score-num">--</div>
           <div class="score-pct">compatible</div>
         </div>
+        <div class="names-display" id="names-display"></div>
         <div class="score-msg" id="score-msg">Based on how both of you see the world 🌸</div>
       </div>
       <div class="disclaimer" style="margin-bottom:16px">Remember — these are <strong>hypothetical situations</strong>. Real compatibility is built every day. This is just a fun peek. 💕</div>
       <div class="per-question-title">How you matched — situation by situation</div>
       <div id="per-question-results"></div>
-      <button class="share-btn" onclick="shareResult()">Share on WhatsApp 💚</button>
+      <button class="share-btn" onclick="shareResult()">Share on WhatsApp</button>
       <button class="btn btn-outline" style="margin-top:10px" onclick="showScreen('screen-home'); resetAll()">Take Again 🔁</button>
     </div>
   </div>
@@ -235,30 +221,13 @@
   setInterval(spawnHeart,800);
   for(let i=0;i<6;i++)setTimeout(spawnHeart,i*300);
 
-  const MOOD_DATA=[
-    {color:'#fff3e0',icon:'👛'},{color:'#e8f5e9',icon:'💰'},{color:'#f3e5f5',icon:'📚'},
-    {color:'#e3f2fd',icon:'🚗'},{color:'#fce4ec',icon:'🛍️'},{color:'#e0f7fa',icon:'🚌'},
-    {color:'#fff9c4',icon:'⏳'},{color:'#fbe9e7',icon:'😂'},{color:'#e8eaf6',icon:'🎵'},
-    {color:'#fdf3e3',icon:'🎉'},{color:'#f9fbe7',icon:'🔍'},{color:'#e0f2f1',icon:'📱'},
-    {color:'#fce4ec',icon:'💔'},{color:'#e8f5e9',icon:'🤫'},{color:'#e3f2fd',icon:'💭'},
-    {color:'#fff3e0',icon:'🏢'},{color:'#f3e5f5',icon:'🎊'},{color:'#fbe9e7',icon:'💡'},
-    {color:'#e0f7fa',icon:'👥'},{color:'#fff9c4',icon:'🎤'},{color:'#fce4ec',icon:'📅'},
-    {color:'#e8eaf6',icon:'😶'},{color:'#e8f5e9',icon:'💪'},{color:'#fdf3e3',icon:'🤝'},
-    {color:'#f9fbe7',icon:'🎯'},{color:'#e0f2f1',icon:'💸'},{color:'#fff3e0',icon:'🤲'},
-    {color:'#f3e5f5',icon:'🎁'},{color:'#fbe9e7',icon:'🛒'},{color:'#e3f2fd',icon:'❤️'},
-    {color:'#fce4ec',icon:'✈️'},{color:'#e8f5e9',icon:'🏆'},{color:'#fff9c4',icon:'⭐'},
-    {color:'#e8eaf6',icon:'💼'},{color:'#fdf3e3',icon:'📈'},{color:'#f9fbe7',icon:'👨‍👩‍👧'},
-    {color:'#e0f7fa',icon:'🤜'},{color:'#fce4ec',icon:'🔐'},{color:'#fff3e0',icon:'🏠'},
-    {color:'#f3e5f5',icon:'🏡'},{color:'#e3f2fd',icon:'🎢'},{color:'#fbe9e7',icon:'🍕'},
-    {color:'#e8f5e9',icon:'⌚'},{color:'#fff9c4',icon:'🏠'},{color:'#e0f2f1',icon:'📵'},
-    {color:'#fce4ec',icon:'😏'},{color:'#e8eaf6',icon:'🌙'},{color:'#f9fbe7',icon:'🤫'},
-    {color:'#fdf3e3',icon:'📸'},{color:'#e0f7fa',icon:'🌍'}
-  ];
+  const MOOD_COLORS=['#fff3e0','#e8f5e9','#f3e5f5','#e3f2fd','#fce4ec','#e0f7fa','#fff9c4','#fbe9e7','#e8eaf6','#fdf3e3','#f9fbe7','#e0f2f1','#fce4ec','#e8f5e9','#e3f2fd','#fff3e0','#f3e5f5','#fbe9e7','#e0f7fa','#fff9c4','#fce4ec','#e8eaf6','#e8f5e9','#fdf3e3','#f9fbe7','#e0f2f1','#fff3e0','#f3e5f5','#fbe9e7','#e3f2fd','#fce4ec','#e8f5e9','#fff9c4','#e8eaf6','#fdf3e3','#f9fbe7','#e0f7fa','#fce4ec','#fff3e0','#f3e5f5','#e3f2fd','#fbe9e7','#e8f5e9','#fff9c4','#e0f2f1','#fce4ec','#e8eaf6','#f9fbe7','#fdf3e3','#e0f7fa'];
 
   const API='';
   let roomCode='',myRole='',createRole='',joinRole='';
   let currentQ=0,answers=new Array(10).fill(null),pollInterval=null;
   let questionIndices=[],typewriterTimeout=null;
+  let myName='',partnerName='',girlName='',boyName='';
 
   const QUESTIONS=[
     {text:"Your partner was walking back alone when someone snatched their wallet and ran. They managed to catch the person — and when confronted, the thief broke down and confessed that they are going through a desperate time financially. Your partner has a choice to make in that moment. What do you expect them to do?",options:["Hand them over to the police — accountability matters regardless of circumstances","Forgive them, maybe even help them — empathy over everything","Lose their temper and handle it physically — anger took over"]},
@@ -322,55 +291,80 @@
   function hideError(id){document.getElementById(id).classList.remove('show');}
 
   async function createRoom(){
-    if(!createRole){showError('create-error','Please select your role first');return;}
-    hideError('create-error');myRole=createRole;
-    try{const res=await fetch(API+'/api/create-room',{method:'POST'});const data=await res.json();roomCode=data.roomCode;questionIndices=data.questionIndices;document.getElementById('display-code').textContent=roomCode;showScreen('screen-roomcode');}
-    catch(e){showError('create-error','Could not connect to server.');}
+    const name=document.getElementById('creator-name').value.trim();
+    if(!name){showError('create-error','Please enter your name');return;}
+    if(!createRole){showError('create-error','Please select your role');return;}
+    hideError('create-error');
+    myName=name;myRole=createRole;
+    if(createRole==='girl')girlName=name;else boyName=name;
+    try{
+      const res=await fetch(API+'/api/create-room',{method:'POST'});
+      const data=await res.json();
+      roomCode=data.roomCode;questionIndices=data.questionIndices;
+      document.getElementById('display-code').textContent=roomCode;
+      showScreen('screen-roomcode');
+    }catch(e){showError('create-error','Could not connect to server.');}
   }
 
   function copyCode(){navigator.clipboard.writeText(roomCode).then(()=>{document.querySelector('.copy-hint').textContent='Copied!';setTimeout(()=>document.querySelector('.copy-hint').textContent='tap to copy',2000);});}
 
   async function joinRoom(){
     const code=document.getElementById('join-code').value.trim().toUpperCase();
+    const name=document.getElementById('joiner-name').value.trim();
     if(!code||code.length!==6){showError('join-error','Please enter a valid 6-character code.');return;}
+    if(!name){showError('join-error','Please enter your name');return;}
     if(!joinRole){showError('join-error','Please select your role');return;}
     hideError('join-error');
-    try{const res=await fetch(API+'/api/room/'+code);const data=await res.json();if(!data.exists){showError('join-error','Room not found. Check the code.');return;}roomCode=code;myRole=joinRole;questionIndices=data.questionIndices;startQuiz();}
-    catch(e){showError('join-error','Could not connect to server.');}
+    myName=name;myRole=joinRole;
+    if(joinRole==='girl')girlName=name;else boyName=name;
+    try{
+      const res=await fetch(API+'/api/room/'+code);
+      const data=await res.json();
+      if(!data.exists){showError('join-error','Room not found. Check the code.');return;}
+      roomCode=code;questionIndices=data.questionIndices;startQuiz();
+    }catch(e){showError('join-error','Could not connect to server.');}
   }
 
   function startQuiz(){currentQ=0;answers=new Array(10).fill(null);renderQuestion();showScreen('screen-quiz');}
 
-  function typewrite(el, text, cb){
-    if(typewriterTimeout) clearTimeout(typewriterTimeout);
+  function typewrite(el,text,cb){
+    if(typewriterTimeout)clearTimeout(typewriterTimeout);
     el.innerHTML='';
     const cursor=document.createElement('span');cursor.className='cursor';
     let i=0;
-    function next(){
-      if(i<text.length){el.textContent=text.slice(0,++i);el.appendChild(cursor);typewriterTimeout=setTimeout(next,18);}
-      else{cursor.remove();if(cb)cb();}
-    }
+    function next(){if(i<text.length){el.textContent=text.slice(0,++i);el.appendChild(cursor);typewriterTimeout=setTimeout(next,16);}else{cursor.remove();if(cb)cb();}}
     next();
+  }
+
+  function spawnOptionHearts(btn){
+    const hearts=['💕','💗','🌸','💖','🩷'];
+    for(let i=0;i<5;i++){
+      const h=document.createElement('span');
+      h.className='pop-heart';
+      h.textContent=hearts[Math.floor(Math.random()*hearts.length)];
+      h.style.left=(20+Math.random()*60)+'%';
+      h.style.top='50%';
+      h.style.animationDelay=(i*0.08)+'s';
+      btn.appendChild(h);
+      setTimeout(()=>h.remove(),1000);
+    }
   }
 
   function renderQuestion(){
     const qIdx=questionIndices[currentQ];
     const q=QUESTIONS[qIdx];
-    const mood=MOOD_DATA[qIdx];
     const dots=document.getElementById('progress-dots');dots.innerHTML='';
     for(let i=0;i<10;i++){const d=document.createElement('div');d.className='progress-dot'+(i<currentQ?' done':i===currentQ?' active':'');dots.appendChild(d);}
     document.getElementById('q-num').textContent='Question '+(currentQ+1)+' of 10';
-    const moodCard=document.getElementById('mood-card');
-    moodCard.style.background=mood.color;
-    document.getElementById('mood-icon').textContent=mood.icon;
+    document.getElementById('mood-card').style.background=MOOD_COLORS[qIdx];
     const qText=document.getElementById('q-text');
     const optDiv=document.getElementById('q-options');optDiv.innerHTML='';
-    typewrite(qText, q.text, ()=>{
+    typewrite(qText,q.text,()=>{
       q.options.forEach((opt,i)=>{
         const btn=document.createElement('button');
         btn.className='option-btn';
         btn.innerHTML='<span class="option-num">'+(i+1)+'</span><span>'+opt+'</span>';
-        btn.onclick=()=>selectAnswer(i+1,btn);
+        btn.onclick=()=>{selectAnswer(i+1,btn);};
         optDiv.appendChild(btn);
         setTimeout(()=>btn.classList.add('visible'),i*120);
         if(answers[currentQ]===i+1)btn.classList.add('selected');
@@ -385,14 +379,19 @@
     document.querySelectorAll('.option-btn').forEach((b,i)=>{
       b.classList.toggle('selected',i+1===num);
     });
+    spawnOptionHearts(btn);
   }
 
   function prevQuestion(){if(currentQ>0){currentQ--;renderQuestion();}}
   function nextQuestion(){if(answers[currentQ]===null)return;if(currentQ<9){currentQ++;renderQuestion();}else{submitAnswers();}}
 
   async function submitAnswers(){
-    try{const res=await fetch(API+'/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({roomCode,role:myRole,answers})});const data=await res.json();if(!data.success){alert(data.message);return;}if(data.bothDone){fetchResults();}else{showScreen('screen-waiting');startPolling();}}
-    catch(e){alert('Submission failed.');}
+    try{
+      const res=await fetch(API+'/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({roomCode,role:myRole,answers,name:myName})});
+      const data=await res.json();
+      if(!data.success){alert(data.message);return;}
+      if(data.bothDone){fetchResults();}else{showScreen('screen-waiting');startPolling();}
+    }catch(e){alert('Submission failed.');}
   }
 
   function startPolling(){pollInterval=setInterval(async()=>{try{const res=await fetch(API+'/api/results/'+roomCode);const data=await res.json();if(data.ready){clearInterval(pollInterval);showResults(data);}}catch(e){}},2500);}
@@ -423,11 +422,14 @@
   let finalScoreForShare=0;
   function showResults(data){
     finalScoreForShare=data.finalScore;
+    const gName=data.girlName||girlName||'Her';
+    const bName=data.boyName||boyName||'Him';
     showScreen('screen-results');
     setTimeout(()=>{
       document.getElementById('final-score-num').textContent=data.finalScore+'%';
+      document.getElementById('names-display').textContent=gName+' and '+bName;
       document.getElementById('score-msg').textContent=getScoreMessage(data.finalScore);
-      if(data.finalScore>=60) launchConfetti();
+      if(data.finalScore>=60)launchConfetti();
     },400);
     const container=document.getElementById('per-question-results');container.innerHTML='';
     const indices=data.questionIndices||questionIndices;
@@ -435,20 +437,22 @@
       const girl=data.girlAnswers[i],boy=data.boyAnswers[i];
       const qName=Q_NAMES[indices[i]];
       const div=document.createElement('div');div.className='q-result';div.style.animationDelay=(i*0.08)+'s';
-      div.innerHTML='<div class="q-result-header"><span class="q-result-name">'+qName+'</span><span class="q-result-score">'+score+'%</span></div><div class="q-result-answers">Her choice: Option '+girl+' &nbsp;·&nbsp; His choice: Option '+boy+'</div><div class="q-bar-bg"><div class="q-bar-fill" style="width:0%" data-width="'+score+'%"></div></div>';
+      div.innerHTML='<div class="q-result-header"><span class="q-result-name">'+qName+'</span><span class="q-result-score">'+score+'%</span></div><div class="q-result-answers">'+gName+': Option '+girl+' &nbsp;·&nbsp; '+bName+': Option '+boy+'</div><div class="q-bar-bg"><div class="q-bar-fill" style="width:0%" data-width="'+score+'%"></div></div>';
       container.appendChild(div);
     });
     setTimeout(()=>document.querySelectorAll('.q-bar-fill').forEach(b=>b.style.width=b.dataset.width),600);
   }
 
   function shareResult(){
-    const msg='We just took the Are We Compatible test and scored '+finalScoreForShare+'% compatibility! 💕 Try it with your partner: https://compatibility-app-z2ta.onrender.com';
+    const gName=girlName||'Her';const bName=boyName||'Him';
+    const msg=gName+' and '+bName+' are '+finalScoreForShare+'% compatible! We just took the Are We Compatible test. Try it with your partner: https://compatibility-app-z2ta.onrender.com';
     window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
   }
 
   function resetAll(){
     roomCode='';myRole='';createRole='';joinRole='';currentQ=0;
     answers=new Array(10).fill(null);questionIndices=[];
+    myName='';partnerName='';girlName='';boyName='';
     if(pollInterval)clearInterval(pollInterval);
     if(typewriterTimeout)clearTimeout(typewriterTimeout);
     ['role-girl','role-boy','join-role-girl','join-role-boy'].forEach(id=>document.getElementById(id).classList.remove('selected'));
