@@ -20,6 +20,18 @@
     .screen { display: none; }
     .screen.active { display: block; animation: fadeUp 0.45s ease forwards; }
     @keyframes fadeUp { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
+
+    /* PAGE FLIP */
+    .quiz-card-wrap { perspective: 1200px; }
+    .quiz-card-inner { transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; }
+    .quiz-card-inner.flip { animation: pageFlip 0.5s cubic-bezier(0.4,0,0.2,1); }
+    @keyframes pageFlip {
+      0% { transform: rotateY(0deg); opacity: 1; }
+      40% { transform: rotateY(-90deg); opacity: 0; }
+      41% { transform: rotateY(90deg); opacity: 0; }
+      100% { transform: rotateY(0deg); opacity: 1; }
+    }
+
     .logo { text-align: center; margin-bottom: 32px; }
     .logo-title { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 400; color: var(--text); line-height: 1.15; }
     .logo-title span { color: var(--accent); font-style: italic; }
@@ -27,7 +39,7 @@
     .logo-tagline { font-family: 'Playfair Display', serif; font-size: 0.95rem; font-style: italic; color: var(--accent); margin-top: 10px; }
     .disclaimer { background: #fff0f3; border: 1px solid var(--accent3); border-radius: 12px; padding: 12px 16px; font-size: 0.76rem; color: var(--muted); line-height: 1.6; margin-bottom: 18px; text-align: center; }
     .disclaimer strong { color: var(--accent); font-weight: 500; }
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 32px 28px; box-shadow: 0 4px 40px rgba(232,116,138,0.1); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 32px 28px; box-shadow: 0 4px 40px rgba(232,116,138,0.1); position: relative; overflow: hidden; }
     .card-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 400; margin-bottom: 6px; color: var(--text); }
     .card-desc { font-size: 0.82rem; color: var(--muted); margin-bottom: 26px; line-height: 1.6; }
     .btn { width: 100%; padding: 14px 20px; border-radius: 50px; border: none; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease; }
@@ -54,19 +66,23 @@
     .progress-dot.done { background: var(--accent); }
     .progress-dot.active { background: var(--accent2); }
     .question-num { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
-    .mood-card { border-radius: 16px; padding: 16px 20px; margin-bottom: 20px; transition: all 0.5s ease; }
-    .question-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 400; line-height: 1.6; color: var(--text); margin-bottom: 22px; min-height: 80px; }
-    .cursor { display: inline-block; width: 2px; height: 1.1em; background: var(--accent); margin-left: 2px; animation: blink 0.7s infinite; vertical-align: text-bottom; }
-    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+    .question-text { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 400; line-height: 1.6; color: var(--text); margin-bottom: 22px; }
     .options { display: flex; flex-direction: column; gap: 10px; }
     .option-btn { padding: 14px 18px; border-radius: 14px; border: 1.5px solid var(--border); background: var(--soft); color: var(--muted); cursor: pointer; text-align: left; font-family: 'Lato', sans-serif; font-size: 0.88rem; line-height: 1.4; transition: all 0.25s; display: flex; align-items: flex-start; gap: 12px; opacity: 0; transform: translateY(10px); position: relative; overflow: hidden; }
-    .option-btn.visible { opacity: 1; transform: translateY(0); }
+    .option-btn.visible { opacity: 1; transform: translateY(0); transition: opacity 0.3s ease, transform 0.3s ease; }
     .option-btn:hover { border-color: var(--accent2); color: var(--text); background: #fff6f8; transform: translateX(4px); }
     .option-btn.selected { border-color: var(--accent); color: white; background: linear-gradient(135deg, #e8748a, #f4a0b0); transform: translateX(4px); }
     .option-btn.selected .option-num { background: rgba(255,255,255,0.3); border-color: white; color: white; }
     .option-num { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; flex-shrink: 0; margin-top: 1px; transition: all 0.2s; }
-    .pop-heart { position: absolute; pointer-events: none; font-size: 1.2rem; animation: heartPop 0.8s ease forwards; z-index: 10; }
-    @keyframes heartPop { 0%{transform:scale(0) translateY(0);opacity:1;} 50%{transform:scale(1.3) translateY(-20px);opacity:1;} 100%{transform:scale(0.8) translateY(-50px);opacity:0;} }
+
+    /* SCATTER HEARTS */
+    .scatter-heart { position: absolute; pointer-events: none; font-size: 1.1rem; animation: scatterAnim ease-out forwards; z-index: 100; }
+    @keyframes scatterAnim {
+      0% { transform: translate(0,0) scale(0) rotate(0deg); opacity: 1; }
+      60% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
     .question-nav { display: flex; gap: 10px; margin-top: 22px; }
     .question-nav .btn { flex: 1; }
     .waiting-anim { text-align: center; padding: 24px 0; }
@@ -157,9 +173,9 @@
     <div class="card">
       <div class="card-title">Enter the room code</div>
       <div class="card-desc">Your partner should share a 6-character code with you.</div>
-      <input type="text" id="join-code" placeholder="e.g. AB12CD" maxlength="6" style="text-transform:uppercase"/>
+      <input type="text" id="join-code" placeholder="E.G. AB12CD" maxlength="6" style="text-transform:uppercase"/>
       <input type="text" id="joiner-name" placeholder="Your first name..." maxlength="20"/>
-      <div class="card-title" style="margin-top:14px">And you are...?</div>
+      <div class="card-title" style="margin-top:14px">And you are?</div>
       <div class="role-select" style="margin-top:12px">
         <button class="role-btn" id="join-role-girl" onclick="selectJoinRole('girl')"><span class="role-emoji">👩</span><span class="role-label">Girl</span></button>
         <button class="role-btn" id="join-role-boy" onclick="selectJoinRole('boy')"><span class="role-emoji">👦</span><span class="role-label">Boy</span></button>
@@ -171,15 +187,18 @@
   </div>
 
   <div id="screen-quiz" class="screen">
-    <div class="card">
-      <div class="question-progress" id="progress-dots"></div>
-      <div class="question-num" id="q-num">Question 1 of 10</div>
-      <div class="mood-card" id="mood-card"></div>
-      <div class="question-text" id="q-text"></div>
-      <div class="options" id="q-options"></div>
-      <div class="question-nav">
-        <button class="btn btn-outline" id="btn-prev" onclick="prevQuestion()">Prev</button>
-        <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()">Next</button>
+    <div class="quiz-card-wrap">
+      <div class="quiz-card-inner" id="quiz-card-inner">
+        <div class="card" id="quiz-card">
+          <div class="question-progress" id="progress-dots"></div>
+          <div class="question-num" id="q-num">Question 1 of 10</div>
+          <div class="question-text" id="q-text"></div>
+          <div class="options" id="q-options"></div>
+          <div class="question-nav">
+            <button class="btn btn-outline" id="btn-prev" onclick="prevQuestion()">Previous</button>
+            <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()">Next</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -216,18 +235,16 @@
 
 </div>
 <script>
-  const emojis=['💕','🌸','💗','🌷','💖','🩷','🤍','💝'];
-  function spawnHeart(){const bg=document.getElementById('heartsBg');const h=document.createElement('div');h.className='heart';h.textContent=emojis[Math.floor(Math.random()*emojis.length)];h.style.left=Math.random()*100+'vw';h.style.fontSize=(0.9+Math.random()*1.2)+'rem';const dur=7+Math.random()*8;h.style.animationDuration=dur+'s';h.style.animationDelay=(Math.random()*4)+'s';bg.appendChild(h);setTimeout(()=>h.remove(),(dur+4)*1000);}
+  const bgEmojis=['💕','💗','💖','💕','💗','💕','💖','💗'];
+  function spawnHeart(){const bg=document.getElementById('heartsBg');const h=document.createElement('div');h.className='heart';h.textContent=bgEmojis[Math.floor(Math.random()*bgEmojis.length)];h.style.left=Math.random()*100+'vw';h.style.fontSize=(0.9+Math.random()*1.2)+'rem';const dur=7+Math.random()*8;h.style.animationDuration=dur+'s';h.style.animationDelay=(Math.random()*4)+'s';bg.appendChild(h);setTimeout(()=>h.remove(),(dur+4)*1000);}
   setInterval(spawnHeart,800);
   for(let i=0;i<6;i++)setTimeout(spawnHeart,i*300);
-
-  const MOOD_COLORS=['#fff3e0','#e8f5e9','#f3e5f5','#e3f2fd','#fce4ec','#e0f7fa','#fff9c4','#fbe9e7','#e8eaf6','#fdf3e3','#f9fbe7','#e0f2f1','#fce4ec','#e8f5e9','#e3f2fd','#fff3e0','#f3e5f5','#fbe9e7','#e0f7fa','#fff9c4','#fce4ec','#e8eaf6','#e8f5e9','#fdf3e3','#f9fbe7','#e0f2f1','#fff3e0','#f3e5f5','#fbe9e7','#e3f2fd','#fce4ec','#e8f5e9','#fff9c4','#e8eaf6','#fdf3e3','#f9fbe7','#e0f7fa','#fce4ec','#fff3e0','#f3e5f5','#e3f2fd','#fbe9e7','#e8f5e9','#fff9c4','#e0f2f1','#fce4ec','#e8eaf6','#f9fbe7','#fdf3e3','#e0f7fa'];
 
   const API='';
   let roomCode='',myRole='',createRole='',joinRole='';
   let currentQ=0,answers=new Array(10).fill(null),pollInterval=null;
-  let questionIndices=[],typewriterTimeout=null;
-  let myName='',partnerName='',girlName='',boyName='';
+  let questionIndices=[],isFlipping=false;
+  let myName='',girlName='',boyName='';
 
   const QUESTIONS=[
     {text:"Your partner was walking back alone when someone snatched their wallet and ran. They managed to catch the person — and when confronted, the thief broke down and confessed that they are going through a desperate time financially. Your partner has a choice to make in that moment. What do you expect them to do?",options:["Hand them over to the police — accountability matters regardless of circumstances","Forgive them, maybe even help them — empathy over everything","Lose their temper and handle it physically — anger took over"]},
@@ -327,26 +344,31 @@
 
   function startQuiz(){currentQ=0;answers=new Array(10).fill(null);renderQuestion();showScreen('screen-quiz');}
 
-  function typewrite(el,text,cb){
-    if(typewriterTimeout)clearTimeout(typewriterTimeout);
-    el.innerHTML='';
-    const cursor=document.createElement('span');cursor.className='cursor';
-    let i=0;
-    function next(){if(i<text.length){el.textContent=text.slice(0,++i);el.appendChild(cursor);typewriterTimeout=setTimeout(next,16);}else{cursor.remove();if(cb)cb();}}
-    next();
-  }
-
-  function spawnOptionHearts(btn){
-    const hearts=['💕','💗','🌸','💖','🩷'];
-    for(let i=0;i<5;i++){
+  function spawnScatterHearts(card){
+    const heartEmojis=['💕','💗','💖','💕','💗','💖','💕','💗','💖','💕'];
+    const rect=card.getBoundingClientRect();
+    for(let i=0;i<14;i++){
       const h=document.createElement('span');
-      h.className='pop-heart';
-      h.textContent=hearts[Math.floor(Math.random()*hearts.length)];
-      h.style.left=(20+Math.random()*60)+'%';
-      h.style.top='50%';
-      h.style.animationDelay=(i*0.08)+'s';
-      btn.appendChild(h);
-      setTimeout(()=>h.remove(),1000);
+      h.className='scatter-heart';
+      h.textContent=heartEmojis[i%heartEmojis.length];
+      const startX=20+Math.random()*60+'%';
+      const startY=20+Math.random()*60+'%';
+      const dx=(Math.random()-0.5)*300;
+      const dy=(Math.random()-0.5)*300;
+      const rot=(Math.random()-0.5)*360;
+      const dur=1.5+Math.random()*1;
+      h.style.cssText='left:'+startX+';top:'+startY+';animation-duration:'+dur+'s;animation-name:none;';
+      card.appendChild(h);
+      requestAnimationFrame(()=>{
+        h.style.animation='none';
+        h.style.transform='translate(0,0) scale(0)';
+        requestAnimationFrame(()=>{
+          h.style.transition='transform '+dur+'s ease-out, opacity '+dur+'s ease-out';
+          h.style.transform='translate('+dx+'px,'+dy+'px) scale(1.2) rotate('+rot+'deg)';
+          h.style.opacity='0';
+        });
+      });
+      setTimeout(()=>h.remove(),(dur+0.5)*1000);
     }
   }
 
@@ -356,19 +378,16 @@
     const dots=document.getElementById('progress-dots');dots.innerHTML='';
     for(let i=0;i<10;i++){const d=document.createElement('div');d.className='progress-dot'+(i<currentQ?' done':i===currentQ?' active':'');dots.appendChild(d);}
     document.getElementById('q-num').textContent='Question '+(currentQ+1)+' of 10';
-    document.getElementById('mood-card').style.background=MOOD_COLORS[qIdx];
-    const qText=document.getElementById('q-text');
+    document.getElementById('q-text').textContent=q.text;
     const optDiv=document.getElementById('q-options');optDiv.innerHTML='';
-    typewrite(qText,q.text,()=>{
-      q.options.forEach((opt,i)=>{
-        const btn=document.createElement('button');
-        btn.className='option-btn';
-        btn.innerHTML='<span class="option-num">'+(i+1)+'</span><span>'+opt+'</span>';
-        btn.onclick=()=>{selectAnswer(i+1,btn);};
-        optDiv.appendChild(btn);
-        setTimeout(()=>btn.classList.add('visible'),i*120);
-        if(answers[currentQ]===i+1)btn.classList.add('selected');
-      });
+    q.options.forEach((opt,i)=>{
+      const btn=document.createElement('button');
+      btn.className='option-btn';
+      btn.innerHTML='<span class="option-num">'+(i+1)+'</span><span>'+opt+'</span>';
+      btn.onclick=()=>selectAnswer(i+1,btn);
+      optDiv.appendChild(btn);
+      setTimeout(()=>btn.classList.add('visible'),i*100);
+      if(answers[currentQ]===i+1){btn.classList.add('selected');}
     });
     document.getElementById('btn-prev').style.display=currentQ===0?'none':'block';
     document.getElementById('btn-next').textContent=currentQ===9?'Submit':'Next';
@@ -376,14 +395,25 @@
 
   function selectAnswer(num,btn){
     answers[currentQ]=num;
-    document.querySelectorAll('.option-btn').forEach((b,i)=>{
-      b.classList.toggle('selected',i+1===num);
-    });
-    spawnOptionHearts(btn);
+    document.querySelectorAll('.option-btn').forEach((b,i)=>b.classList.toggle('selected',i+1===num));
+    const card=document.getElementById('quiz-card');
+    spawnScatterHearts(card);
   }
 
-  function prevQuestion(){if(currentQ>0){currentQ--;renderQuestion();}}
-  function nextQuestion(){if(answers[currentQ]===null)return;if(currentQ<9){currentQ++;renderQuestion();}else{submitAnswers();}}
+  function flipAndGo(cb){
+    if(isFlipping)return;
+    isFlipping=true;
+    const inner=document.getElementById('quiz-card-inner');
+    inner.classList.add('flip');
+    setTimeout(()=>{cb();inner.classList.remove('flip');isFlipping=false;},500);
+  }
+
+  function prevQuestion(){if(currentQ>0){flipAndGo(()=>{currentQ--;renderQuestion();});}}
+  function nextQuestion(){
+    if(answers[currentQ]===null)return;
+    if(currentQ<9){flipAndGo(()=>{currentQ++;renderQuestion();});}
+    else{submitAnswers();}
+  }
 
   async function submitAnswers(){
     try{
@@ -452,9 +482,8 @@
   function resetAll(){
     roomCode='';myRole='';createRole='';joinRole='';currentQ=0;
     answers=new Array(10).fill(null);questionIndices=[];
-    myName='';partnerName='';girlName='';boyName='';
+    myName='';girlName='';boyName='';isFlipping=false;
     if(pollInterval)clearInterval(pollInterval);
-    if(typewriterTimeout)clearTimeout(typewriterTimeout);
     ['role-girl','role-boy','join-role-girl','join-role-boy'].forEach(id=>document.getElementById(id).classList.remove('selected'));
     document.getElementById('join-code').value='';
   }
