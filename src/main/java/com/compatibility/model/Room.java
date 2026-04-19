@@ -1,4 +1,4 @@
-﻿package com.compatibility.model;
+package com.compatibility.model;
 
 public class Room {
     private String roomCode;

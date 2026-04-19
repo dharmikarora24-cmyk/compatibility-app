@@ -1,0 +1,5 @@
+com\compatibility\model\Room.class
+com\compatibility\controller\RoomController.class
+com\compatibility\service\RoomService.class
+com\compatibility\service\CompatibilityService.class
+com\compatibility\CompatibilityApplication.class

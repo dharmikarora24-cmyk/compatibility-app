@@ -1,4 +1,4 @@
-﻿package com.compatibility.controller;
+package com.compatibility.controller;
 
 import com.compatibility.model.Room;
 import com.compatibility.service.CompatibilityService;
