@@ -21,6 +21,17 @@
     .screen.active { display: block; animation: fadeUp 0.45s ease forwards; }
     @keyframes fadeUp { from{opacity:0;transform:translateY(18px);} to{opacity:1;transform:translateY(0);} }
 
+    /* LOADING SCREEN */
+    #screen-loading { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; }
+    #screen-loading.active { display: flex; }
+    .loading-title { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 400; color: var(--text); line-height: 1.2; }
+    .loading-title span { color: var(--accent); font-style: italic; }
+    .loading-sub { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 10px; }
+    .loading-hearts { font-size: 2rem; letter-spacing: 8px; margin-top: 28px; animation: pulse 1.2s ease-in-out infinite; }
+    .loading-bar-wrap { width: 160px; height: 3px; background: var(--accent3); border-radius: 2px; margin-top: 28px; overflow: hidden; }
+    .loading-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 2px; animation: loadBar 2s ease forwards; }
+    @keyframes loadBar { 0%{width:0;} 100%{width:100%;} }
+
     /* PAGE FLIP */
     .quiz-card-wrap { perspective: 1200px; }
     .quiz-card-inner { transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); transform-style: preserve-3d; }
@@ -74,30 +85,37 @@
     .option-btn.selected { border-color: var(--accent); color: white; background: linear-gradient(135deg, #e8748a, #f4a0b0); transform: translateX(4px); }
     .option-btn.selected .option-num { background: rgba(255,255,255,0.3); border-color: white; color: white; }
     .option-num { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; flex-shrink: 0; margin-top: 1px; transition: all 0.2s; }
-
-    /* SCATTER HEARTS */
-    .scatter-heart { position: absolute; pointer-events: none; font-size: 1.1rem; animation: scatterAnim ease-out forwards; z-index: 100; }
-    @keyframes scatterAnim {
-      0% { transform: translate(0,0) scale(0) rotate(0deg); opacity: 1; }
-      60% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-
+    .scatter-heart { position: absolute; pointer-events: none; font-size: 1.1rem; z-index: 100; }
     .question-nav { display: flex; gap: 10px; margin-top: 22px; }
     .question-nav .btn { flex: 1; }
+
+    /* WAITING */
     .waiting-anim { text-align: center; padding: 24px 0; }
     .heart-pulse { font-size: 3.5rem; animation: pulse 1.4s ease-in-out infinite; display: block; margin-bottom: 18px; }
     @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
     .waiting-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--text); margin-bottom: 8px; }
-    .waiting-sub { font-size: 0.82rem; color: var(--muted); }
-    .results-header { text-align: center; padding: 10px 0 24px; }
+    .waiting-sub { font-size: 0.82rem; color: var(--muted); transition: opacity 0.5s; }
+
+    /* RESULTS */
+    .results-header { text-align: center; padding: 10px 0 20px; }
     .results-hearts { font-size: 1.4rem; letter-spacing: 6px; margin-bottom: 16px; animation: pulse 2s ease-in-out infinite; }
-    .score-circle { width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, #fff0f3, #fce4ea); border: 3px solid var(--accent3); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 16px; box-shadow: 0 8px 32px rgba(232,116,138,0.2); animation: scaleIn 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards; }
+
+    /* SCORE RING */
+    .score-ring-wrap { position: relative; width: 170px; height: 170px; margin: 0 auto 16px; }
+    .score-ring-svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: rotateSlow 4s linear infinite; }
+    .score-circle { width: 150px; height: 150px; border-radius: 50%; background: linear-gradient(135deg, #fff0f3, #fce4ea); border: 3px solid var(--accent3); display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 10px; left: 10px; box-shadow: 0 8px 32px rgba(232,116,138,0.2); animation: scaleIn 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards; }
     @keyframes scaleIn { from{transform:scale(0);opacity:0;} to{transform:scale(1);opacity:1;} }
+    @keyframes rotateSlow { from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
     .score-num { font-family: 'Playfair Display', serif; font-size: 2.6rem; font-weight: 600; color: var(--accent); line-height: 1; }
     .score-pct { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
     .score-msg { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; color: var(--muted); margin-top: 8px; }
-    .names-display { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--accent); margin-top: 6px; font-style: italic; }
+
+    /* COUPLE NAMES CARD */
+    .couple-card { background: linear-gradient(135deg, #fff0f3, #fce4ea); border: 1.5px solid var(--accent3); border-radius: 18px; padding: 18px 24px; text-align: center; margin: 16px 0; }
+    .couple-names { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; color: var(--accent); font-style: italic; }
+    .couple-heart { font-size: 1.2rem; margin: 0 10px; animation: pulse 1.5s ease-in-out infinite; display: inline-block; }
+    .couple-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 6px; }
+
     .per-question-title { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin: 20px 0 14px; }
     .q-result { margin-bottom: 16px; opacity: 0; transform: translateY(8px); animation: slideIn 0.4s ease forwards; }
     @keyframes slideIn { to{opacity:1;transform:translateY(0);} }
@@ -122,7 +140,15 @@
 <div class="hearts-bg" id="heartsBg"></div>
 <div class="app">
 
-  <div id="screen-home" class="screen active">
+  <!-- LOADING -->
+  <div id="screen-loading" class="screen active">
+    <div class="loading-title">Are We <span>Compatible?</span></div>
+    <div class="loading-sub">A little test for two hearts</div>
+    <div class="loading-hearts">💕 💗 💕</div>
+    <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+  </div>
+
+  <div id="screen-home" class="screen">
     <div class="logo">
       <div class="logo-title">Are We <span>Compatible?</span></div>
       <div class="logo-sub">A little test for two hearts</div>
@@ -208,7 +234,7 @@
       <div class="waiting-anim">
         <span class="heart-pulse">💗</span>
         <div class="waiting-text">Waiting for your partner...</div>
-        <div class="waiting-sub" id="waiting-sub">They are still answering 🌸</div>
+        <div class="waiting-sub" id="waiting-sub">They are still thinking...</div>
       </div>
     </div>
   </div>
@@ -218,11 +244,23 @@
     <div class="card">
       <div class="results-header">
         <div class="results-hearts">💕 🌸 💕</div>
-        <div class="score-circle">
-          <div class="score-num" id="final-score-num">--</div>
-          <div class="score-pct">compatible</div>
+        <div class="score-ring-wrap">
+          <svg class="score-ring-svg" viewBox="0 0 170 170">
+            <circle cx="85" cy="85" r="80" fill="none" stroke="#fbc8d2" stroke-width="2" stroke-dasharray="8 6" stroke-linecap="round"/>
+          </svg>
+          <div class="score-circle">
+            <div class="score-num" id="final-score-num">0%</div>
+            <div class="score-pct">compatible</div>
+          </div>
         </div>
-        <div class="names-display" id="names-display"></div>
+        <div class="couple-card">
+          <div class="couple-names">
+            <span id="girl-name-display">Her</span>
+            <span class="couple-heart">💕</span>
+            <span id="boy-name-display">Him</span>
+          </div>
+          <div class="couple-label">compatibility score</div>
+        </div>
         <div class="score-msg" id="score-msg">Based on how both of you see the world 🌸</div>
       </div>
       <div class="disclaimer" style="margin-bottom:16px">Remember — these are <strong>hypothetical situations</strong>. Real compatibility is built every day. This is just a fun peek. 💕</div>
@@ -240,11 +278,31 @@
   setInterval(spawnHeart,800);
   for(let i=0;i<6;i++)setTimeout(spawnHeart,i*300);
 
+  // Loading screen
+  setTimeout(()=>{ showScreen('screen-home'); }, 2200);
+
   const API='';
   let roomCode='',myRole='',createRole='',joinRole='';
   let currentQ=0,answers=new Array(10).fill(null),pollInterval=null;
   let questionIndices=[],isFlipping=false;
   let myName='',girlName='',boyName='';
+
+  // Waiting messages rotation
+  const waitingMsgs=['They are still thinking...','Almost there...','Worth the wait...','Taking their time...','Just a moment more...'];
+  let waitingMsgIdx=0, waitingMsgInterval=null;
+  function startWaitingMessages(){
+    waitingMsgInterval=setInterval(()=>{
+      const el=document.getElementById('waiting-sub');
+      if(!el)return;
+      el.style.opacity='0';
+      setTimeout(()=>{
+        waitingMsgIdx=(waitingMsgIdx+1)%waitingMsgs.length;
+        el.textContent=waitingMsgs[waitingMsgIdx];
+        el.style.opacity='1';
+      },400);
+    },3000);
+  }
+  function stopWaitingMessages(){ if(waitingMsgInterval)clearInterval(waitingMsgInterval); }
 
   const QUESTIONS=[
     {text:"Your partner was walking back alone when someone snatched their wallet and ran. They managed to catch the person — and when confronted, the thief broke down and confessed that they are going through a desperate time financially. Your partner has a choice to make in that moment. What do you expect them to do?",options:["Hand them over to the police — accountability matters regardless of circumstances","Forgive them, maybe even help them — empathy over everything","Lose their temper and handle it physically — anger took over"]},
@@ -346,24 +404,20 @@
 
   function spawnScatterHearts(card){
     const heartEmojis=['💕','💗','💖','💕','💗','💖','💕','💗','💖','💕'];
-    const rect=card.getBoundingClientRect();
     for(let i=0;i<14;i++){
       const h=document.createElement('span');
       h.className='scatter-heart';
       h.textContent=heartEmojis[i%heartEmojis.length];
-      const startX=20+Math.random()*60+'%';
-      const startY=20+Math.random()*60+'%';
+      const startX=20+Math.random()*60;
+      const startY=20+Math.random()*60;
       const dx=(Math.random()-0.5)*300;
       const dy=(Math.random()-0.5)*300;
       const rot=(Math.random()-0.5)*360;
       const dur=1.5+Math.random()*1;
-      h.style.cssText='left:'+startX+';top:'+startY+';animation-duration:'+dur+'s;animation-name:none;';
+      h.style.cssText='left:'+startX+'%;top:'+startY+'%;position:absolute;pointer-events:none;font-size:1.1rem;z-index:100;transition:transform '+dur+'s ease-out, opacity '+dur+'s ease-out;transform:translate(0,0) scale(0);opacity:1;';
       card.appendChild(h);
       requestAnimationFrame(()=>{
-        h.style.animation='none';
-        h.style.transform='translate(0,0) scale(0)';
         requestAnimationFrame(()=>{
-          h.style.transition='transform '+dur+'s ease-out, opacity '+dur+'s ease-out';
           h.style.transform='translate('+dx+'px,'+dy+'px) scale(1.2) rotate('+rot+'deg)';
           h.style.opacity='0';
         });
@@ -420,11 +474,11 @@
       const res=await fetch(API+'/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({roomCode,role:myRole,answers,name:myName})});
       const data=await res.json();
       if(!data.success){alert(data.message);return;}
-      if(data.bothDone){fetchResults();}else{showScreen('screen-waiting');startPolling();}
+      if(data.bothDone){fetchResults();}else{showScreen('screen-waiting');startPolling();startWaitingMessages();}
     }catch(e){alert('Submission failed.');}
   }
 
-  function startPolling(){pollInterval=setInterval(async()=>{try{const res=await fetch(API+'/api/results/'+roomCode);const data=await res.json();if(data.ready){clearInterval(pollInterval);showResults(data);}}catch(e){}},2500);}
+  function startPolling(){pollInterval=setInterval(async()=>{try{const res=await fetch(API+'/api/results/'+roomCode);const data=await res.json();if(data.ready){clearInterval(pollInterval);stopWaitingMessages();showResults(data);}}catch(e){}},2500);}
   async function fetchResults(){try{const res=await fetch(API+'/api/results/'+roomCode);const data=await res.json();if(data.ready)showResults(data);}catch(e){}}
 
   function launchConfetti(){
@@ -439,6 +493,16 @@
       document.body.appendChild(c);
       setTimeout(()=>c.remove(),5000);
     }
+  }
+
+  function countUp(el, target, duration){
+    let start=0;
+    const step=target/( duration/16);
+    const timer=setInterval(()=>{
+      start+=step;
+      if(start>=target){start=target;clearInterval(timer);}
+      el.textContent=Math.round(start)+'%';
+    },16);
   }
 
   function getScoreMessage(score){
@@ -456,8 +520,10 @@
     const bName=data.boyName||boyName||'Him';
     showScreen('screen-results');
     setTimeout(()=>{
-      document.getElementById('final-score-num').textContent=data.finalScore+'%';
-      document.getElementById('names-display').textContent=gName+' and '+bName;
+      const scoreEl=document.getElementById('final-score-num');
+      countUp(scoreEl, data.finalScore, 1500);
+      document.getElementById('girl-name-display').textContent=gName;
+      document.getElementById('boy-name-display').textContent=bName;
       document.getElementById('score-msg').textContent=getScoreMessage(data.finalScore);
       if(data.finalScore>=60)launchConfetti();
     },400);
@@ -484,6 +550,8 @@
     answers=new Array(10).fill(null);questionIndices=[];
     myName='';girlName='';boyName='';isFlipping=false;
     if(pollInterval)clearInterval(pollInterval);
+    stopWaitingMessages();
+    waitingMsgIdx=0;
     ['role-girl','role-boy','join-role-girl','join-role-boy'].forEach(id=>document.getElementById(id).classList.remove('selected'));
     document.getElementById('join-code').value='';
   }
