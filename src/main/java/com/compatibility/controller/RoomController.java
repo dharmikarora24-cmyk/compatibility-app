@@ -1,4 +1,4 @@
-package com.compatibility.controller;
+﻿package com.compatibility.controller;
 
 import com.compatibility.model.Room;
 import com.compatibility.service.CompatibilityService;
@@ -6,7 +6,6 @@ import com.compatibility.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 @RestController
@@ -51,6 +50,7 @@ public class RoomController {
     public ResponseEntity<Map<String, Object>> submitAnswers(@RequestBody Map<String, Object> body) {
         String code = ((String) body.get("roomCode")).toUpperCase();
         String role = (String) body.get("role");
+        String name = body.get("name") != null ? (String) body.get("name") : "";
         java.util.List<Integer> answersList = (java.util.List<Integer>) body.get("answers");
         Integer[] answers = answersList.toArray(new Integer[0]);
 
@@ -71,6 +71,7 @@ public class RoomController {
                 return ResponseEntity.badRequest().body(resp);
             }
             room.setGirlAnswers(answers);
+            room.setGirlName(name);
         } else {
             if (room.isBoyDone()) {
                 resp.put("success", false);
@@ -78,6 +79,7 @@ public class RoomController {
                 return ResponseEntity.badRequest().body(resp);
             }
             room.setBoyAnswers(answers);
+            room.setBoyName(name);
         }
 
         resp.put("success", true);
@@ -116,6 +118,8 @@ public class RoomController {
         resp.put("girlAnswers", room.getGirlAnswers());
         resp.put("boyAnswers", room.getBoyAnswers());
         resp.put("questionIndices", indices);
+        resp.put("girlName", room.getGirlName());
+        resp.put("boyName", room.getBoyName());
         return ResponseEntity.ok(resp);
     }
 
