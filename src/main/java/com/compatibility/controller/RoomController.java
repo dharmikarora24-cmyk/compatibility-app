@@ -120,6 +120,9 @@ public class RoomController {
         resp.put("questionIndices", indices);
         resp.put("girlName", room.getGirlName());
         resp.put("boyName", room.getBoyName());
+
+        roomService.deleteRoom(code);
+
         return ResponseEntity.ok(resp);
     }
 

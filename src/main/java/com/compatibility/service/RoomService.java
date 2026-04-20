@@ -37,4 +37,8 @@ public class RoomService {
         Room room = rooms.get(code.toUpperCase());
         if (room != null) room.setQuestionIndices(indices);
     }
+
+    public void deleteRoom(String code) {
+        rooms.remove(code.toUpperCase());
+    }
 }
