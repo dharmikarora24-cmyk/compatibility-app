@@ -134,7 +134,7 @@
     .share-btn:hover { transform: translateY(-2px); background: #128C7E; }
     .confetti-piece { position: fixed; width: 8px; height: 8px; border-radius: 2px; pointer-events: none; z-index: 999; animation: confettiFall linear forwards; }
     @keyframes confettiFall { 0%{transform:translateY(-20px) rotate(0deg);opacity:1;} 100%{transform:translateY(100vh) rotate(720deg);opacity:0;} }
-  </style>
+  html, body, *, *::before, *::after, button, input, a, div, span { cursor: none !important; }</style>
 </head>
 <body>
 <div class="hearts-bg" id="heartsBg"></div>
@@ -551,6 +551,7 @@
 </script>
 <div id="cursor" style="position:fixed;width:24px;height:24px;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);font-size:20px;transition:transform 0.1s;display:flex;align-items:center;justify-content:center;">🤍</div><script>const cur=document.getElementById("cursor");document.addEventListener("mousemove",e=>{cur.style.left=e.clientX+"px";cur.style.top=e.clientY+"px";});document.addEventListener("mousedown",()=>{cur.textContent="🩷";cur.style.transform="translate(-50%,-50%) scale(1.3)";});document.addEventListener("mouseup",()=>{cur.textContent="🤍";cur.style.transform="translate(-50%,-50%) scale(1)";});</script></body>
 </html>
+
 
 
 
