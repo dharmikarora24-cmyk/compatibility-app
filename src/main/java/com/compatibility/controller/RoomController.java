@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 @RequestMapping("/api")
@@ -18,6 +19,8 @@ public class RoomController {
 
     @Autowired
     private CompatibilityService compatibilityService;
+
+    private final Map<String, Map<String, Object>> cachedResults = new ConcurrentHashMap<>();
 
     @PostMapping("/create-room")
     public ResponseEntity<Map<String, Object>> createRoom() {
@@ -90,14 +93,19 @@ public class RoomController {
     @GetMapping("/results/{code}")
     public ResponseEntity<Map<String, Object>> getResults(@PathVariable String code) {
         Map<String, Object> resp = new HashMap<>();
+        String upperCode = code.toUpperCase();
 
-        if (!roomService.roomExists(code)) {
+        if (cachedResults.containsKey(upperCode)) {
+            return ResponseEntity.ok(cachedResults.get(upperCode));
+        }
+
+        if (!roomService.roomExists(upperCode)) {
             resp.put("ready", false);
             resp.put("message", "Room not found");
             return ResponseEntity.ok(resp);
         }
 
-        Room room = roomService.getRoom(code.toUpperCase());
+        Room room = roomService.getRoom(upperCode);
 
         if (!room.isBothDone()) {
             resp.put("ready", false);
@@ -111,19 +119,25 @@ public class RoomController {
         double finalScore = compatibilityService.calculateFinalScore(scores);
         String label = compatibilityService.getCompatibilityLabel(finalScore);
 
-        resp.put("ready", true);
-        resp.put("scores", scores);
-        resp.put("finalScore", finalScore);
-        resp.put("label", label);
-        resp.put("girlAnswers", room.getGirlAnswers());
-        resp.put("boyAnswers", room.getBoyAnswers());
-        resp.put("questionIndices", indices);
-        resp.put("girlName", room.getGirlName());
-        resp.put("boyName", room.getBoyName());
+        Map<String, Object> result = new HashMap<>();
+        result.put("ready", true);
+        result.put("scores", scores);
+        result.put("finalScore", finalScore);
+        result.put("label", label);
+        result.put("girlAnswers", room.getGirlAnswers());
+        result.put("boyAnswers", room.getBoyAnswers());
+        result.put("questionIndices", indices);
+        result.put("girlName", room.getGirlName());
+        result.put("boyName", room.getBoyName());
 
-        roomService.deleteRoom(code);
+        cachedResults.put(upperCode, result);
+        roomService.deleteRoom(upperCode);
 
-        return ResponseEntity.ok(resp);
+        new Timer().schedule(new TimerTask() {
+            public void run() { cachedResults.remove(upperCode); }
+        }, 60000);
+
+        return ResponseEntity.ok(result);
     }
 
     private int[] generateRandomIndices() {

@@ -276,10 +276,10 @@ public class CompatibilityService {
     }
 
     public String getCompatibilityLabel(double score) {
-        if (score >= 85) return "Your hearts speak the same language Ã°Å¸â€™â€¢";
-        if (score >= 70) return "You understand each other beautifully Ã°Å¸Å’Â¸";
-        if (score >= 55) return "You complement each other well Ã°Å¸â€™â€”";
-        if (score >= 40) return "You see things differently Ã¢â‚¬â€ and that is okay Ã°Å¸Å’Â·";
-        return "Opposites can teach each other a lot Ã°Å¸Â¤Â";
+        if (score >= 85) return "Your hearts speak the same language ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã¢â‚¬Â¢";
+        if (score >= 70) return "You understand each other beautifully ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â¸";
+        if (score >= 55) return "You complement each other well ÃƒÂ°Ã…Â¸Ã¢â‚¬â„¢Ã¢â‚¬â€";
+        if (score >= 40) return "You see things differently ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â and that is okay ÃƒÂ°Ã…Â¸Ã…â€™Ã‚Â·";
+        return "Opposites can teach each other a lot ÃƒÂ°Ã…Â¸Ã‚Â¤Ã‚Â";
     }
 }

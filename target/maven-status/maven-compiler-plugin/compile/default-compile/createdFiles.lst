@@ -3,3 +3,4 @@ com\compatibility\controller\RoomController.class
 com\compatibility\service\RoomService.class
 com\compatibility\service\CompatibilityService.class
 com\compatibility\CompatibilityApplication.class
+com\compatibility\controller\RoomController$1.class
