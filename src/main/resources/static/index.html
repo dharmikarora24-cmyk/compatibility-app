@@ -12,7 +12,7 @@
       --text: #3a2030; --muted: rgba(58,32,48,0.5); --soft: #f9e4ea;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: var(--bg); color: var(--text); font-family: 'Lato', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow-x: hidden; }
+    body { cursor: none !important;  background: var(--bg); color: var(--text); font-family: 'Lato', sans-serif; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow-x: hidden; }
     .hearts-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
     .heart { position: absolute; bottom: -60px; animation: floatUp linear infinite; opacity: 0; }
     @keyframes floatUp { 0%{transform:translateY(0) rotate(-10deg) scale(0.8);opacity:0;} 10%{opacity:0.5;} 90%{opacity:0.2;} 100%{transform:translateY(-110vh) rotate(10deg) scale(1.1);opacity:0;} }
@@ -549,8 +549,10 @@
     document.getElementById('join-code').value='';
   }
 </script>
-</body>
+<div id="cursor" style="position:fixed;width:24px;height:24px;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);font-size:20px;transition:transform 0.1s;display:flex;align-items:center;justify-content:center;">🤍</div><script>const cur=document.getElementById("cursor");document.addEventListener("mousemove",e=>{cur.style.left=e.clientX+"px";cur.style.top=e.clientY+"px";});document.addEventListener("mousedown",()=>{cur.textContent="🩷";cur.style.transform="translate(-50%,-50%) scale(1.3)";});document.addEventListener("mouseup",()=>{cur.textContent="🤍";cur.style.transform="translate(-50%,-50%) scale(1)";});</script></body>
 </html>
+
+
 
 
 
